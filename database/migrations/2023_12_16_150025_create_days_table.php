@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('days', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('path');
-            $table->foreignId('user_id')->nullable()->constrained;
-            $table->foreignId('experience_id')->nullable()->constrained;
+            $table->foreignId('experience_id')->constrained();
+            $table->date('date');
+            $table->time('timeframe');
             $table->timestamps();
+            $table->integer('max_people');
+            $table->integer('people_registered')->default(0);
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('photos');
+        Schema::dropIfExists('days');
     }
 };

@@ -110,7 +110,7 @@
 
     .fadeOut {
         opacity: 1;
-        transition: opacity 1s ease-out;
+        transition: opacity 3s ease-out;
     }
 
     .custom-alert {
@@ -123,6 +123,8 @@
         border-color: #ffffff;
         box-shadow: 0 0 10px #198754;
     }
+
+    
 </style>
 
 
@@ -153,7 +155,7 @@
                     $photoroute = "profile.updatePhoto";
                     @endphp
                     @else
-                    <img src="{{ asset('path/to/default/photo.jpg') }}" alt="Default Photo" class="rounded-image mb-4" width="150">
+                    <img src="{{ asset('storage/images/stock.jpg') }}" alt="Default Photo" class="rounded-image mb-4" width="150">
                     @php
                     $photoroute = 'profile.storePhoto';
                     @endphp
@@ -188,18 +190,8 @@
                             <input type="email" name="email" class="form-control" value="{{ $user->email }}" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="current_password" class="form-label">Current Password</label>
-                            <input id="current_password" type="password" class="form-control" name="current_password" required autocomplete="current-password">
-                            @error('current_password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="new_password" class="form-label">New Password</label>
+                        <div class="form-group">
+                            <label for="new_password">New Password</label>
                             <input id="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password" autocomplete="new-password">
                             @error('new_password')
                             <span class="invalid-feedback" role="alert">
@@ -208,8 +200,8 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="new_password_confirmation" class="form-label">Confirm New Password</label>
+                        <div class="form-group">
+                            <label for="new_password_confirmation">Confirm New Password</label>
                             <input id="new_password_confirmation" type="password" class="form-control" name="new_password_confirmation" autocomplete="new-password">
                             @error('new_password_confirmation')
                             <span class="invalid-feedback" role="alert">

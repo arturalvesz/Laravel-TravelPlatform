@@ -178,18 +178,7 @@
         display: block;
         /* Make the link a block element to fill the container */
         margin: auto;
-        outline: none;
     }
-
-    a,
-a:visited,
-a:hover,
-a:active,
-a:focus {
-    outline: none !important;
-    text-decoration: none !important;
-    color: inherit !important;
-}
 
     .col-md-10 {
         margin: auto;
@@ -199,15 +188,6 @@ a:focus {
     .experience-price {
         color: #198754;
     }
-
-    .no-experiences-message {
-        text-align: center;
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #555;
-        margin-top: 20px;
-    }
-
     .experiences-available-message {
         text-align: center;
         font-size: 1.5em;
@@ -228,10 +208,10 @@ a:focus {
                     <img src="{{ asset('/defImages/stock.jpg') }}" alt="Default Photo" class="rounded-image mb-4" width="150">
                     @endif
                     <div class="user-info">
-                        <p class="user-name">{{ Auth::user()->name }}</p>
-                        <p class="user-email">{{ Auth::user()->email }}</p>
+                        <p class="user-name">{{ $user->name }}</p>
+                        <p class="user-email">{{ $user->email }}</p>
                     </div>
-                    <a href="{{ route('profile.edit', ['user' => $user->id]) }}" class="btn btn-outline-success">Edit Profile</button></a>
+                    <!-- You can add more buttons or actions here based on your requirements -->
                 </div>
             </div>
         </div>
@@ -266,9 +246,8 @@ a:focus {
                     </div>
                 </a>
                 @empty
-                <div class="col-md-12 text-center"> <!-- Adjust the column width if needed -->
-                    <div class="no-experiences-message">No experiences found</div>
-                </div> @endforelse
+                <p>No experiences found.</p>
+                @endforelse
             </div>
         </div>
     </div>

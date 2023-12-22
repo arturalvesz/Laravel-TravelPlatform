@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->string('name');
-            $table->string('path');
-            $table->foreignId('user_id')->nullable()->constrained;
-            $table->foreignId('experience_id')->nullable()->constrained;
+            $table->text('description');
+            $table->decimal('price', 8, 2);
+            $table->string('duration')->nullable();
+            $table->string('location');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('photos');
+        Schema::dropIfExists('experiences');
     }
 };

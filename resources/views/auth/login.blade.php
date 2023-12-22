@@ -22,7 +22,7 @@
     body {
         margin: 0;
         padding: 0;
-        background: url('/backgroundImages/bg1.jpg') no-repeat center fixed;
+        background: url('/defImages/bg1.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
@@ -65,9 +65,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const backgrounds = [
-            '/backgroundImages/bg1.jpg',
-            '/backgroundImages/bg2.jpg',
-            '/backgroundImages/bg5.jpeg',
+            '/defImages/bg1.jpg',
+            '/defImages/bg2.jpg',
+            '/defImages/bg5.jpeg',
         ];
         let currentBackground = 0;
 
@@ -81,15 +81,15 @@
 </script>
 
 <div class="container">
-    <a href="{{ route('home') }}" class="close-btn" aria-label="Close">
+    <a href="{{ route('homepage') }}" class="close-btn" aria-label="Close">
         <!-- Adjust the close button as needed -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
     </a>
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
+        <div class="col-md-6 mx-auto">
+            <div class="card ">
                 <div class="card-body text-center">
                     <h2 class="text-secondary title mb-4">Login</h2>
                     <form method="POST" action="{{ route('login') }}">

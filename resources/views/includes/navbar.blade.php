@@ -1,7 +1,6 @@
-
 @guest
-@unless(request()->is('login') || request()->is('register'))
-<!-- Navbar for Guests (Login and Register) -->
+@if(!request()->is('login') || !request()->is('register') || !request()->is('home'))
+<!-- Navbar for Guests on Login and Register pages -->
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-center">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -17,31 +16,61 @@
         </ul>
     </div>
 </nav>
-@endunless
-@endguest
-
-
-@auth
-<!-- Navbar for Users Logged In -->
+@endif
+@else
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-center">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
-        <div class="dropdown">
-            <button class="btn bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ auth()->user()->name }}
-            </button>
-            <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item border-radius-md" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
-                <li><a class="dropdown-item border-radius-md" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}</a></li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </ul>
+        <div class="d-flex">
+            @if(auth()->user()->usertype == 'traveler')
+            <!-- Button for users with usertype other than 'local' -->
+            <button type="button" class="btn btn-link text-success" onclick="document.getElementById('becomeLocalForm').submit()">Become a Local</button>
+            <form id="becomeLocalForm" action="{{ route('becomeLocal') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            @else
+            <!-- Button for users with usertype 'local' -->
+            <a class="btn btn-outline-success" href="{{route('experience.createExperience')}}">Upload Experience</a>
+            @endif
+
+            <div class="dropdown" id="hover-dropdown">
+                <div class="btn" style="background-color:transparent; border-color: transparent;">
+                    {{ auth()->user()->name }}
+                </div>
+                <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}</a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </ul>
+            </div>
         </div>
-        
     </div>
 </nav>
-@endauth
+@endguest
+
+<style>
+    #hover-dropdown:hover .dropdown-menu {
+        display: block;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0,0,0,0.04);
+        border-radius: 20px;
+    }
+
+    .dropdown-menu {
+        display: none;
+        /* Hide the dropdown by default */
+    }
+
+    #hover-dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-item {
+        font-size: 125%;
+    }
+</style>

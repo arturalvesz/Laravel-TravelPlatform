@@ -5,24 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Photo extends Model
+class Day extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'path',
-        'user_id',
-        'experience_id'
+        'date',
+        'timeframe',
+        'experience_id',
+        'max_people',
+        'people_registered',
     ];
     
-
-    public function user(){
-
-        return $this->belongsTo(User::class); 
-    }
-
-    public function experience(){
+    public function experience()
+    {
         return $this->belongsTo(Experience::class);
     }
 }

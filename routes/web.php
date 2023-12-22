@@ -1,38 +1,58 @@
-<?php
+    <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\User\ProfileController;
+    use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Auth;
+    use App\Http\Controllers\User\ProfileController;
+    use App\Http\Controllers\User\UserController;
+    use App\Http\Controllers\Platform\ExperienceController;
+    use App\Http\Controllers\Platform\DayController;
+    use App\Http\Controllers\HomePageController;
+    /*
+    |--------------------------------------------------------------------------
+    | Web Routes
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register web routes for your application. These
+    | routes are loaded by the RouteServiceProvider and all of them will
+    | be assigned to the "web" middleware group. Make something great!
+    |
+    */
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+    Auth::routes();
 
-Route::get('/', function () {
-    return view('home');
-});
+    Route::get('/', [HomePageController::class, 'index'])->name('homepage');
+
+    Route::middleware('auth')->group(function () {
+
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('/profile/{user}', 'show')->name('profile.show');
+            Route::get('/profile/{user}/edit', 'edit')->name('profile.edit');
+            Route::put('/profile/updateProfile', 'updateUser')->name('profile.updateUser');
+            Route::post('/profile/storePhoto', 'storePhoto')->name('profile.storePhoto');
+            Route::post('/profile/updatePhoto', 'updatePhoto')->name('profile.updatePhoto');
+            Route::post('/profile/storeAddress', 'storeAddress')->name('profile.storeAddress');
+            Route::post('/profile/updateAddress', 'updateAddress')->name('profile.updateAddress');
+        });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::controller(UserController::class)->group(function () {
+            Route::post('/becomeLocal', 'becomeLocal')->name('becomeLocal');
+        });
 
-Auth::routes();
+        Route::controller(ExperienceController::class)->group(function () {
+            Route::get('/experience/create', 'createExperience')->name('experience.createExperience');
+            Route::post('/experience/store', 'store')->name('experience.storeExperience');
+            Route::put('/experience/update', 'update')->name('experience.updateExperience');
+            Route::post('/experience/storePhoto', 'storeExpPhoto')->name('experience.storePhoto');
+            Route::post('/experience/{experience}/show-availability', 'checkAvailability')->name('experience.checkAvailability');
+            Route::get('/experience/{experience}/show-availability', 'showAvailability')->name('experience.showAvailability');
+            
+        });
 
-Route::middleware('auth')->group(function (){
-
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('/profile/{user}', 'show')->name('profile.show');
-        Route::get('/profile', 'edit')->name('profile.edit');
-        Route::put('/profile/updateProfile', 'updateUser')->name('profile.updateUser');
-        Route::post('/profile/storePhoto', 'storePhoto')->name('profile.storePhoto');
-        Route::post('/profile/updatePhoto', 'updatePhoto')->name('profile.updatePhoto');
-        Route::post('/profile/storeAddress', 'storeAddress')->name('profile.storeAddress');
-        Route::post('/profile/updateAddress', 'updateAddress')->name('profile.updateAddress');
+        Route::post('experience/storeDay', [DayController::class, 'storeDay'])->name('experience.storeDay');
     });
-});
+
+
+    Route::controller(ExperienceController::class)->group(function () {
+        Route::get('/experience/{experience}', 'show')->name('experience.show');
+    });
