@@ -31,8 +31,11 @@ class CartController extends Controller
         // Get the current cart or create an empty array
         $cart = session()->get('cart', []);
 
+        $itemId = uniqid();
+
         // Add the new item to the cart
         $cart[] = [
+            'id' => $itemId,
             'experience_id' => $experienceId,
             'num_tickets' => $numTickets,
             'selected_date' => $selectedDate,
@@ -48,17 +51,15 @@ class CartController extends Controller
 
     public function removeExperienceFromCart(Request $request)
 {
-    $experienceIdToRemove = $request->input('experience_id');
-    $selectedTimeframeToRemove = $request->input('selected_timeframe');
-
+    $itemIdToRemove = $request->input('item_id');
     // Get the current cart or create an empty array
     $cart = session()->get('cart', []);
 
     // Create a new array without the item to be removed
     $newCart = [];
     foreach ($cart as $item) {
-        // Check both experience ID and selected timeframe
-        if ($item['experience_id'] != $experienceIdToRemove || $item['selected_timeframe'] != $selectedTimeframeToRemove) {
+        // Check if the item's id matches the id to be removed
+        if ($item['id'] != $itemIdToRemove) {
             $newCart[] = $item;
         }
     }
@@ -69,6 +70,7 @@ class CartController extends Controller
     // Redirect to the cart view
     return redirect()->route('cart.show');
 }
+
 
 
 }

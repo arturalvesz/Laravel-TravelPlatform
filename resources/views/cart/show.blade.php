@@ -1,6 +1,4 @@
-<!-- cart.blade.php -->
-
-@extends('layouts.app') {{-- Assuming you have a layout named app.blade.php --}}
+@extends('layouts.app') 
 
 @section('content')
 <style>
@@ -115,8 +113,7 @@
                     {{-- Add the "Eliminate" button --}}
                     <form action="{{ route('cart.remove') }}" method="post">
                         @csrf
-                        <input type="hidden" name="experience_id" value="{{ $item['experience_id'] }}">
-                        <input type="hidden" name="selected_timeframe" value="{{ $item['selected_timeframe'] }}">
+                        <input type="hidden" name="item_id" value="{{ $item['id'] }}">
                         <button type="submit" class="btn btn-outline-success" id="btn1">Eliminate</button>
                     </form>
                 </div>
