@@ -65,9 +65,10 @@
 
             Route::post('/checkout', 'checkout')->name('checkout');
             Route::get('/cancel', 'cancel')->name('checkout.cancel');
-            Route::get('/success', 'cancel')->name('checkout.success');
-            Route::post('/webhook', 'cancel')->name('checkout.success');
+            
         });
+
+        Route::get('/success', [StripeController::class, 'success'])->name('checkout.success');
 
     });
 
