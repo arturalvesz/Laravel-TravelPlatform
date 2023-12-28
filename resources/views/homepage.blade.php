@@ -167,33 +167,39 @@ a.btn.btn-outline-success {
     .search-bar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 20px 0;
+    justify-content: flex-start; /* Align to the left */
+    margin: 20px 0; /* Adjust margin as needed */
 }
 
 /* Style for the search input */
 .search-bar-container input {
-    padding: 5px 15px 5px 10px; /* Added left padding */
-    font-size: 14px;
+    padding: 6px 10px; /* Adjust padding for a larger input */
+    font-size: 14px; /* Adjust font size */
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.04);
-    border-radius: 20px 0 0 20px; /* Adjust the border-radius as needed */
-    margin-right: 0; /* Remove the right margin */
-    width: 200px; /* Adjust the width as needed */
-    outline: none; /* Remove the outline on click */
+    border-radius: 24px 0 0 24px;
+    margin-right: 0;
+    width: 250px; /* Adjust the width as needed */
+    outline: none;
 }
 
 /* Style for the search button */
 .search-bar-container button {
-    padding: 5px 15px;
-    font-size: 14px;
+    padding: 6px 10px; /* Adjust padding for a larger button */
+    font-size: 14px; /* Adjust font size */
     cursor: pointer;
-    border-radius: 0 20px 20px 0; /* Adjust the border-radius as needed */
+    border-radius: 0 24px 24px 0;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.04);/* Add border for the button */
-    outline: none; /* Remove the outline on click */
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    outline: none;
 }
 
+
+.cart-icon {
+        width: 20px; /* Set a specific width for the cart icon */
+        height: auto; /* Maintain the aspect ratio */
+        cursor: pointer;
+    }
 </style>
 
 
@@ -247,8 +253,12 @@ a.btn.btn-outline-success {
             </form>
             @else
             <!-- Button for users with usertype 'local' -->
-            <a class="btn btn-outline-success" href="{{route('experience.createExperience')}}">Upload Experience</a>
+            <a class="btn btn-outline-success custom-black-text" href="{{route('experience.createExperience')}}">Upload Experience</a>
             @endif
+
+            <div class="btn" style="background-color:transparent; border-color: transparent;">
+            <img src="{{ asset('/defImages/cart.png') }}" class="cart-icon" onclick="location.href='{{ route('cart.show') }}';">
+            </div>
 
             <div class="dropdown" id="hover-dropdown">
                 <div class="btn" style="background-color:transparent; border-color: transparent;">

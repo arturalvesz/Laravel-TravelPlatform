@@ -57,4 +57,8 @@ class User extends Authenticatable
     public function experience(){
         return $this->hasMany(Experience::class);
     }
+
+    public function order(){
+        return $this->hasMnay(Order::class);
+    }
 }

@@ -3,7 +3,26 @@
 @section('content')
 
 <style>
-    /* Add any additional styles you need for displaying the experience */
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 
     .category-label {
         font-size: 14px;
@@ -91,6 +110,15 @@
     .availability-input {
         margin-bottom: 10px;
     }
+
+    .check-availability-btn {
+        margin-top: 20px;
+        /* Reduce margin for a smaller button */
+        padding: 5px 10px;
+        /* Adjust padding for a smaller button */
+        font-size: 15px;
+        /* Reduce font size */
+    }
 </style>
 
 <div class="container">
@@ -116,13 +144,14 @@
                     <div class="experience-duration">Duration: {{ $experience->duration }} minutes</div>
                     <div class="small-phrase">Check availability to see starting time</div>
                     <div class="experience-price">Price: {{ $experience->price }}€</div>
-                    <!-- You can add more details or customize the display as needed -->
                 </div>
             </div>
         </div>
-        <a href="{{ route('experience.showAvailability', ['experience' => $experience->id]) }}" class="btn btn-primary">
-        Check Availability
-    </a>
+    </div>
+    <div class="text-center">
+        <a href="{{ route('experience.showAvailability', ['experience' => $experience->id]) }}" class="btn btn-outline-success check-availability-btn">
+            Check Availability
+        </a>
     </div>
 </div>
 

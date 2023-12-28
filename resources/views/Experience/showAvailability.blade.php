@@ -84,6 +84,17 @@
         padding: 20px;
         text-align: center;
     }
+
+    /* Center the Add to Cart button */
+    #availability-page .add-to-cart-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Hide the Add to Cart button initially */
+    #availability-page #add-to-cart-button {
+        display: none;
+    }
 </style>
 
 <div id="availability-page">
@@ -108,9 +119,7 @@
 
         <div class="card timeframes-card" id="availability-container">
             <div class="card-body">
-                <!-- Availability information will be displayed here -->
                 <h2>Available Timeframes:</h2>
-                <!-- Display timeframes as separate buttons without grouping -->
                 <div id="timeframes-container"></div>
             </div>
         </div>
@@ -123,51 +132,67 @@
             <p><strong>Selected Date:</strong> <span id="result-selected-date"></span></p>
             <p><strong>Selected Timeframe:</strong> <span id="result-selected-timeframe"></span></p>
         </div>
+
+        <!-- Container for Add to Cart button -->
+        <div class="add-to-cart-container">
+            <form action="{{ route('cart.addToCart') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="numTickets" value="" id="numTicketsInput">
+                <input type="hidden" name="selectedDate" value="" id="selectedDateInput">
+                <input type="hidden" name="selectedTimeframe" value="" id="selectedTimeframeInput">
+                <input type="hidden" name="experience_id" value="{{ $experience->id }}">
+                <input type="hidden" name="experience_price" value="{{ $experience->price }}">
+                <button type="submit" class="btn btn-outline-success" id="add-to-cart-button">Add to Cart</button>
+            </form>
+        </div>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function updateAvailability() {
-        var selectedDate = $('#selected_date').val();
-        var numTickets = $('#num_tickets').val();
 
-        $.ajax({
-            url: '{{ route('experience.checkAvailability', ['experience' => $experience->id]) }}',
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                selected_date: selectedDate,
-                num_tickets: numTickets
-            },
-            success: function (data) {
-                // Update the content of the availability container
-                var timeframesContainer = $('#timeframes-container');
-                timeframesContainer.empty(); // Clear existing content
+function updateAvailability() {
+    var selectedDate = $('#selected_date').val();
+    var numTickets = $('#num_tickets').val();
 
-                if (data.available_timeframes.length > 0) {
-                    // Display timeframes as separate buttons without grouping
-                    $.each(data.available_timeframes, function (index, timeframe) {
-                        var button = $('<button>', {
-                            type: 'button',
-                            class: 'btn btn-outline-success',
-                            text: timeframe,
-                            click: function () {
-                                showResult(data.experience_name, numTickets, selectedDate, timeframe);
-                            }
-                        });
-                        timeframesContainer.append(button);
+    $.ajax({
+        url: '{{ route('experience.checkAvailability', ['experience' => $experience->id]) }}',
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            selected_date: selectedDate,
+            num_tickets: numTickets
+        },
+        success: function (data) {
+            // Update the content of the availability container
+            var timeframesContainer = $('#timeframes-container');
+            timeframesContainer.empty(); // Clear existing content
+
+            if (data.available_timeframes.length > 0) {
+                // Display timeframes
+                $.each(data.available_timeframes, function (index, timeframe) {
+                    var button = $('<button>', {
+                        type: 'button',
+                        class: 'btn btn-outline-success',
+                        text: timeframe,
+                        click: function () {
+                            showResult(data.experience_name, numTickets, selectedDate, timeframe);
+                            // Show the Add to Cart button after displaying booking details
+                            $('#add-to-cart-button').show();
+                        }
                     });
-                } else {
-                    // Display "No timeframes available" message
-                    timeframesContainer.append('<p>No timeframes available</p>');
-                }
-            },
-            error: function () {
-                console.log('Error fetching availability');
+                    timeframesContainer.append(button);
+                });
+            } else {
+                // Display "No timeframes available" message
+                timeframesContainer.append('<p>No timeframes available</p>');
             }
-        });
-    }
+        },
+        error: function () {
+            console.log('Error fetching availability');
+        }
+    });
+}
 
     function showResult(experience, numTickets, selectedDate, selectedTimeframe) {
         // Update the result card with the selected details
@@ -176,8 +201,14 @@
         $('#result-selected-date').text(selectedDate);
         $('#result-selected-timeframe').text(selectedTimeframe);
 
+        // Set the value of the hidden inputs
+        $('#numTicketsInput').val(numTickets);
+        $('#selectedDateInput').val(selectedDate);
+        $('#selectedTimeframeInput').val(selectedTimeframe);
+
         // Display the result card
         $('#result-container').show();
     }
+
 </script>
 @endsection

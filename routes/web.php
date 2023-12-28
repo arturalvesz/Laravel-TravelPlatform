@@ -7,6 +7,8 @@
     use App\Http\Controllers\Platform\ExperienceController;
     use App\Http\Controllers\Platform\DayController;
     use App\Http\Controllers\HomePageController;
+    use App\Http\Controllers\Platform\CartController;
+    use App\Http\Controllers\Platform\StripeController;
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -50,7 +52,26 @@
         });
 
         Route::post('experience/storeDay', [DayController::class, 'storeDay'])->name('experience.storeDay');
+
+        Route::controller(CartController::class)->group(function () {
+
+            Route::post('/cart/add', 'addToCart')->name('cart.addToCart');
+            Route::get('cart', 'showCart')->name('cart.show');
+            Route::post('/cart/remove','removeExperienceFromCart')->name('cart.remove');
+
+        });
+
+        Route::controller(StripeController::class)->group(function (){
+
+            Route::post('/checkout', 'checkout')->name('checkout');
+            Route::get('/cancel', 'cancel')->name('checkout.cancel');
+            Route::get('/success', 'cancel')->name('checkout.success');
+            Route::post('/webhook', 'cancel')->name('checkout.success');
+        });
+
     });
+
+
 
 
     Route::controller(ExperienceController::class)->group(function () {
