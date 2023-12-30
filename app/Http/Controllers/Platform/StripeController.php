@@ -10,6 +10,10 @@ use App\Models\Order;
 use App\Models\OrderExperience;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Day;
 
 class StripeController extends Controller
 {
@@ -75,18 +79,21 @@ class StripeController extends Controller
             }
 
             $order = Order::where('session_id', $session->id)->first();
-            
-            if(!$order){
+
+            if (!$order) {
                 throw new NotFoundHttpException();
             }
-            
+
             if ($order && $order->status == 'unpaid') {
 
                 $order->status = 'paid';
             }
 
             $cart = session()->get('cart', []);
-            foreach($cart as $item){
+
+
+
+            foreach ($cart as $item) {
                 $experienceId = $item['experience_id'];
                 $numTickets = $item['num_tickets'];
                 $price = $item['price'];
@@ -97,9 +104,23 @@ class StripeController extends Controller
                 $orderExperience->num_tickets = $numTickets;
                 $orderExperience->price = $price;
                 $orderExperience->save();
+
+                $day = Day::where('experience_id', $experienceId)
+                    ->where('date', $item['selected_date'])
+                    ->where('timeframe', $item['selected_timeframe'])
+                    ->first();
+
+                // Check if the day is found
+                if ($day) {
+                    // Update the people_registered attribute
+                    $day->increment('people_registered', $numTickets);
+                }
             }
 
             $order->save();
+
+            $this->generatePDF($order, $cart);
+
 
             session()->forget('cart');
 
@@ -154,5 +175,18 @@ class StripeController extends Controller
         }
 
         return response('');
+    }
+
+    protected function generatePDF($order, $cart)
+    {
+
+        $pdf = PDF::loadView('ordersPDF.pdf', [
+            'order' => $order,
+            'cart' => $cart,
+        ]);
+        $slug = Str::slug($order->created_at, '-');
+        $fileName = 'ordersPDF_' . $slug . '.pdf';
+        $filePath = 'public/ordersPDF/' . $fileName;
+        Storage::put($filePath, $pdf->output());
     }
 }

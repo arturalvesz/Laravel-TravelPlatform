@@ -11,7 +11,7 @@ use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Day;
 use Carbon\Carbon;
-
+use App\Models\OrderExperience;
 class ExperienceController extends Controller
 {
     //
@@ -47,9 +47,17 @@ class ExperienceController extends Controller
     public function destroy(Experience $experience)
     {
 
+        $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
+
+
+        $experience->day()->delete();
+        $experience->photo()->delete();
+
+        OrderExperience::whereIn('order_id', $orderIds)->delete();
+
         $experience->delete();
 
-        return redirect()->back()->with('success', 'Experience deleted successfully');
+        return redirect('/')->with('success', 'Experience deleted successfully');
     }
 
     public function store(Request $request)

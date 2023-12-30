@@ -9,6 +9,15 @@ use App\Models\Experience;
 
 class HomePageController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
     public function index()
     {
         $categories = Category::all();

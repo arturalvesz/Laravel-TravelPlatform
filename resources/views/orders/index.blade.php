@@ -72,6 +72,9 @@ body {
                                 <td>{{ $order->totalPrice}}</td>
                                 <td>
                                     <a class="btn btn-outline-success btn-sm" href="{{ route('orders.show', compact('order')) }}">Show</a>
+                                    @if($order->status === 'paid')
+                                    <a class="btn btn-outline-success btn-sm"href="{{ route('pdf.download', ['order' => $order->id ]) }}" target="_blank" rel="noopener">PDF</a>
+                                @endif
                                 </td>
                             </tr>
                         @endforeach

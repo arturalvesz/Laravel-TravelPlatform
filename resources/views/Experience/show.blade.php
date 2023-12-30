@@ -144,6 +144,15 @@
                     <div class="experience-duration">Duration: {{ $experience->duration }} minutes</div>
                     <div class="small-phrase">Check availability to see starting time</div>
                     <div class="experience-price">Price: {{ $experience->price }}€</div>
+
+                    <div class="text-center">
+                        @if(Auth::check() && Auth::user()->id === $experience->user_id)
+                        <form action="{{ route('experience.destroy', compact('experience')) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,6 +162,7 @@
             Check Availability
         </a>
     </div>
+
 </div>
 
 <script>

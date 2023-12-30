@@ -21,11 +21,11 @@
     |
     */
 
-    Auth::routes();
+    Auth::routes(['verify'=>true]);
 
     Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth','verified'])->group(function () {
 
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/profile/{user}', 'show')->name('profile.show');
@@ -49,6 +49,8 @@
             Route::post('/experience/storePhoto', 'storeExpPhoto')->name('experience.storePhoto');
             Route::post('/experience/{experience}/show-availability', 'checkAvailability')->name('experience.checkAvailability');
             Route::get('/experience/{experience}/show-availability', 'showAvailability')->name('experience.showAvailability');
+            Route::post('/experience/destroy/{experience}', 'destroy')->name('experience.destroy');
+
             
         });
 
@@ -67,6 +69,7 @@
             Route::post('/checkout', 'checkout')->name('checkout');
             Route::get('/cancel', 'cancel')->name('checkout.cancel');
         });
+        
         Route::get('/success', [StripeController::class, 'success'])->name('checkout.success');
 
 
@@ -75,10 +78,9 @@
             
             Route::get('/orders', 'index')->name('orders.index');
             Route::get('/orders/{order}', 'show')->name('orders.show');
+            Route::get('/orders/ordersPDF/download/{order}', 'downloadPDF')->name('pdf.download');
+
         });
-
-        Route::get('/success', [StripeController::class, 'success'])->name('checkout.success');
-
     });
 
 
