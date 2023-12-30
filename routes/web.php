@@ -77,6 +77,8 @@
             Route::get('/orders/{order}', 'show')->name('orders.show');
         });
 
+        Route::get('/success', [StripeController::class, 'success'])->name('checkout.success');
+
     });
 
 
