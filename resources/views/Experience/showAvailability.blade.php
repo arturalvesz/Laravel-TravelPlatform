@@ -3,6 +3,33 @@
 @section('content')
 
 <style>
+
+body {
+        margin: 0;
+        padding: 0;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    html, body, #app {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
     /* Add a unique class or ID for the availability page styles */
     #availability-page {
         display: flex;
@@ -89,14 +116,17 @@
     #availability-page .add-to-cart-container {
         text-align: center;
         margin-top: 20px;
+        margin-bottom: 150px;
     }
 
     /* Hide the Add to Cart button initially */
     #availability-page #add-to-cart-button {
         display: none;
     }
+
 </style>
 
+<div class = container>
 <div id="availability-page">
     <h1>Show Availability for {{ $experience->name }}</h1>
 
@@ -146,6 +176,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -211,4 +242,5 @@ function updateAvailability() {
     }
 
 </script>
+
 @endsection

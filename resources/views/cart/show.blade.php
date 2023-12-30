@@ -1,8 +1,6 @@
-<!-- cart.blade.php -->
-
-@extends('layouts.app') {{-- Assuming you have a layout named app.blade.php --}}
-
+@extends('layouts.app')
 @section('content')
+
 <style>
     body {
         margin: 0;
@@ -80,6 +78,17 @@
         cursor: pointer;
         /* Show pointer cursor on hover to indicate clickability */
     }
+
+    #btn2 {
+        margin-bottom: 150px;
+        border-radius: 24px;
+        font-size: 16px;
+    }
+    .checkout-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px; /* Adjust margin as needed */
+    }
 </style>
 
 <div id="cart-page">
@@ -115,8 +124,7 @@
                     {{-- Add the "Eliminate" button --}}
                     <form action="{{ route('cart.remove') }}" method="post">
                         @csrf
-                        <input type="hidden" name="experience_id" value="{{ $item['experience_id'] }}">
-                        <input type="hidden" name="selected_timeframe" value="{{ $item['selected_timeframe'] }}">
+                        <input type="hidden" name="item_id" value="{{ $item['id'] }}">
                         <button type="submit" class="btn btn-outline-success" id="btn1">Eliminate</button>
                     </form>
                 </div>
@@ -129,10 +137,12 @@
         @endforeach
 
         <p class="total-price">Total Price: {{ $cartTotalPrice }}€</p>
+        <div class="checkout-container">
         <form action="{{route('checkout')}}" method="POST">
             @csrf
-            <button>Checkout</button>
+            <button type="submit" class="btn btn-outline-success" id="btn2">Checkout</button>
         </form>
+        </div>
         @else
         @if(session('cart_empty_message'))
         <div class="alert alert-warning">
@@ -140,8 +150,9 @@
         </div>
         @endif
         <p class="empty-cart-message">Your shopping cart is empty.</p>
-        @endif {{-- Add this line to close the @if directive --}}
+        @endif
 
     </div>
 </div>
+
 @endsection

@@ -12,7 +12,7 @@ class HomePageController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $experiences = Experience::all();
+        $experiences = Experience::paginate(10);
 
         return view('homepage', compact('categories','experiences'));
     }

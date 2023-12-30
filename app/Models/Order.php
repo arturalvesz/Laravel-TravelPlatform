@@ -9,11 +9,11 @@ class Order extends Model
 {
     use HasFactory;
 
-    public function experiences(){
-        $this->hasMany(Experience::class);     
+    public function orderExperiences(){
+        return $this->hasMany(OrderExperience::class);     
     }
 
     public function user(){
-        $this->belongsTo(User::class);     
+        return $this->belongsTo(User::class);     
     }
 }

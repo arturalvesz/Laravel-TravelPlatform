@@ -9,6 +9,7 @@
     use App\Http\Controllers\HomePageController;
     use App\Http\Controllers\Platform\CartController;
     use App\Http\Controllers\Platform\StripeController;
+    use App\Http\Controllers\Platform\OrderController;
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -65,13 +66,23 @@
 
             Route::post('/checkout', 'checkout')->name('checkout');
             Route::get('/cancel', 'cancel')->name('checkout.cancel');
-            Route::get('/success', 'cancel')->name('checkout.success');
-            Route::post('/webhook', 'cancel')->name('checkout.success');
+        });
+        Route::get('/success', [StripeController::class, 'success'])->name('checkout.success');
+
+
+
+        Route::controller(OrderController::class)->group(function (){
+            
+            Route::get('/orders', 'index')->name('orders.index');
+            Route::get('/orders/{order}', 'show')->name('orders.show');
         });
 
     });
 
 
+
+
+    Route::post('/webhook', [StripeController::class, 'webhook'])->name('checkout.webhook');
 
 
     Route::controller(ExperienceController::class)->group(function () {

@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $photo = $user->photo;
         $userAuth = Auth::user();
         $address = $user->address;
-        $userExperiences = $user->experience()->distinct()->get();
+        $userExperiences = $user->experience()->distinct()->paginate(4);
 
         return view('profile.show', compact('user', 'photo', 'address', 'userAuth','userExperiences'));
     }

@@ -266,6 +266,7 @@ a.btn.btn-outline-success {
                 </div>
                 <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('orders.index')}}">Orders</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -321,7 +322,26 @@ a.btn.btn-outline-success {
         </a>
         @endforeach
     </div>
+    <div class="d-flex justify-content-center">
+    {{ $experiences->links('pagination::bootstrap-5') }}
 </div>
+</div>
+
+<footer class="py-5 bg-green ">
+    <div class="container">
+        <p class="m-0 text-center text-white">&copy; 2023 Made in Universidade Fernando Pessoa.</p>
+    </div>
+</footer>
+
+<style>
+    .bg-green {
+        background-color: #0e471e; /* Dark Green color */
+    }
+
+    footer p {
+        margin: 0;
+    }
+</style>
 
 <script>
     $(document).ready(function() {
@@ -414,4 +434,5 @@ function searchExperiences() {
     });
 }
 </script>
+
 @endsection

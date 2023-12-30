@@ -59,9 +59,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const backgrounds = [
-            '/backgroundImages/bg1.jpg',
-            '/backgroundImages/bg2.jpg',
-            '/backgroundImages/bg5.jpeg',
+            '/defImages/bg1.jpg',
+            '/defImages/bg2.jpg',
+            '/defImages/bg5.jpeg',
         ];
         let currentBackground = 0;
 

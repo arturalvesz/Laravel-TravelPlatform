@@ -249,6 +249,9 @@
                 <p>No experiences found.</p>
                 @endforelse
             </div>
+            <div class="d-flex justify-content-center">
+                {{ $userExperiences->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 </div>

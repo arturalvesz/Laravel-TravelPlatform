@@ -182,14 +182,14 @@
     }
 
     a,
-a:visited,
-a:hover,
-a:active,
-a:focus {
-    outline: none !important;
-    text-decoration: none !important;
-    color: inherit !important;
-}
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus {
+        outline: none !important;
+        text-decoration: none !important;
+        color: inherit !important;
+    }
 
     .col-md-10 {
         margin: auto;
@@ -265,10 +265,14 @@ a:focus {
                         </div>
                     </div>
                 </a>
+
                 @empty
                 <div class="col-md-12 text-center"> <!-- Adjust the column width if needed -->
                     <div class="no-experiences-message">No experiences found</div>
                 </div> @endforelse
+            </div>
+            <div class="d-flex justify-content-center">
+                {{ $userExperiences->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

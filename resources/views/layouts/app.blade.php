@@ -40,13 +40,13 @@
     <div id="app">
 
 
-
         @unless(request()->is('home') || request()->is('login') || request()->is('register') ||request()->is('/'))
         @include('includes.navbar')
         @endunless
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
 </body>
 
