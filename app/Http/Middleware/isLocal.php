@@ -17,7 +17,7 @@ class isLocal
     {
         $user = auth()->user();
 
-        if ($user->role == 'local') {
+        if ($user->usertype == 'local') {
             return $next($request);
         }
         return redirect('/home')->with('error', 'You dont have access to this page');

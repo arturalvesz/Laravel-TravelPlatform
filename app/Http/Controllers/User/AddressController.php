@@ -11,13 +11,26 @@ class AddressController extends Controller
 {
     //
 
-    public function index(){}
+    public function index()
+    {
+        $addresses = Address::orderBy('id','asc')->paginate(10);
 
-    public function show(){}
+        return view('address.index', compact('addresses'));
+    }
 
-    public function create(){}
+    public function show(Address $address)
+    {
+        return view('address.show', compact('address'));
+    }
+    public function create()
+    {
+        return view('address.create');
+    }
 
-    public function edit(){}
+    public function edit(Address $address)
+    {
+        return view('address.edit', compact('address'));
+    }
 
     public function destroy(Address $address){
 

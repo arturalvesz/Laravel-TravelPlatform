@@ -57,7 +57,7 @@
 
     .btn-success {
         margin-top: 0px;
-        margin-bottom: -10px;
+        margin-bottom: 0px;
     }
     
 </style>
@@ -118,13 +118,7 @@
                                 {{ __('Login') }}
                             </button>
                         </div>
-                        <div class="d-flex justify-content-center mt-3">
-                            @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot my password') }}
-                            </a>
-                            @endif
-                        </div>
+                        
                     </form>
                 </div>
             </div>

@@ -41,7 +41,11 @@
 
 
         @unless(request()->is('home') || request()->is('login') || request()->is('register') ||request()->is('/'))
+        @if(Auth::user()->usertype == 'admin')
+        @include('includes.adminnavbar')
+        @else
         @include('includes.navbar')
+        @endif
         @endunless
         <main class="py-4">
             @yield('content')

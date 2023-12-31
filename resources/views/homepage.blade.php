@@ -200,12 +200,15 @@ a.btn.btn-outline-success {
         height: auto; /* Maintain the aspect ratio */
         cursor: pointer;
     }
+
+.navbar-admin{
+    margin-top: -23px;
+}
 </style>
 
 
 
 @guest
-<!-- Navbar for Guests on Login and Register pages -->
 <nav class="navbar navbar-expand-md d-flex justify-content-center">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -227,6 +230,37 @@ a.btn.btn-outline-success {
                 <a class="nav-link register" href="{{ route('register') }}">{{ __('Register') }}</a>
             </li>
         </ul>
+    </div>
+</nav>
+
+@elseif(auth()->user()->usertype == 'admin')
+
+<nav class="navbar navbar-expand-md d-flex justify-content-center navbar-admin">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            Admin Dashboard
+        </a>
+        <div class="d-flex">
+            <div class="dropdown" id="hover-dropdown">
+                <div class="btn" style="background-color:transparent; border-color: transparent;">
+                    {{ auth()->user()->name }}
+                </div>
+                <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
+
+                    <li><a class="dropdown-item" href="{{ route('users.index') }}">Users</a></li>
+                    <li><a class="dropdown-item" href="{{ route('experience.index') }}">Experiences</a></li>
+                    <li><a class="dropdown-item" href="{{ route('address.index') }}">Addresses</a></li>
+                    <li><a class="dropdown-item" href="{{ route('photo.index') }}">Photos</a></li>
+                    <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}</a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </ul>
+            </div>
+        </div>
     </div>
 </nav>
 @else
@@ -277,6 +311,7 @@ a.btn.btn-outline-success {
         </div>
     </div>
 </nav>
+
 @endguest
 
 

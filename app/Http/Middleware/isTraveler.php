@@ -17,7 +17,7 @@ class isTraveler
     {
         $user = auth()->user();
 
-        if ($user->role == 'traveler') {
+        if ($user->usertype == 'traveler') {
             return $next($request);
         }
         return redirect('/home')->with('error', 'You dont have access to this page');

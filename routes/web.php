@@ -10,6 +10,10 @@
     use App\Http\Controllers\Platform\CartController;
     use App\Http\Controllers\Platform\StripeController;
     use App\Http\Controllers\Platform\OrderController;
+    use App\Http\Controllers\User\AddressController;
+    use App\Http\Controllers\User\PhotoController;
+    use App\Http\Controllers\Platform\CategoryController;
+    
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -43,10 +47,11 @@
         });
 
         Route::controller(ExperienceController::class)->group(function () {
-            Route::get('/experience/create', 'createExperience')->name('experience.createExperience');
+            Route::get('/experience/createExperience', 'createExperience')->name('experience.createExperience');
             Route::post('/experience/store', 'store')->name('experience.storeExperience');
-            Route::put('/experience/update', 'update')->name('experience.updateExperience');
+            Route::post('/experience/update/{experience}', 'updateExperience')->name('experience.updateExperience');
             Route::post('/experience/storePhoto', 'storeExpPhoto')->name('experience.storePhoto');
+
             Route::post('/experience/{experience}/show-availability', 'checkAvailability')->name('experience.checkAvailability');
             Route::get('/experience/{experience}/show-availability', 'showAvailability')->name('experience.showAvailability');
             Route::post('/experience/destroy/{experience}', 'destroy')->name('experience.destroy');
@@ -83,6 +88,56 @@
         });
     });
 
+    Route::middleware('isAdmin')->group(function (){
+
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/users', 'index')->name('users.index');
+            Route::get('/users/create', 'create')->name('users.create');
+            Route::post('/users/store', 'store')->name('users.store');
+            Route::get('/users/show/{user}', 'show')->name('users.show');
+            Route::get('/users/edit/{user}', 'edit')->name('users.edit');
+            Route::post('/users/update/{user}', 'update')->name('users.update');
+            Route::post('/users/destroy/{user}', 'destroy')->name('users.destroy');
+            Route::put('/users/change-usertype/{user}', 'changeUserType')->name('users.changeUsertype');
+        });
+
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('/categories', 'index')->name('category.index');
+            Route::get('/categories/show/{category}', 'show')->name('category.show');
+            Route::get('/categories/create', 'create')->name('category.create');
+            Route::get('/categories/edit/{category}', 'edit')->name('category.edit');
+            Route::post('/categories/store', 'store')->name('category.store');
+            Route::post('/categories/update/{category}', 'update')->name('category.update');
+            Route::post('/categories/destroy/{category}', 'destroy')->name('category.destroy');
+        });
+        Route::controller(PhotoController::class)->group(function () {
+            Route::get('/photos', 'index')->name('photo.index');
+            Route::get('/photos/create', 'create')->name('photo.create');
+            Route::post('/photos/store', 'storePhoto')->name('photo.store');
+            Route::get('/photos/show/{photo}', 'show')->name('photo.show');
+            Route::get('/photos/edit/{photo}', 'edit')->name('photo.edit');
+            Route::post('/photos/update/{photo}', 'update')->name('photo.update');
+            Route::post('/photos/destroy/{photo}', 'destroy')->name('photo.destroy');
+        });
+
+        Route::controller(AddressController::class)->group(function () {
+            Route::get('/addresses', 'index')->name('address.index');
+            Route::get('/addresses/create', 'create')->name('address.create');
+            Route::post('/addresses/store', 'store')->name('address.store');
+            Route::get('/addresses/show/{address}', 'show')->name('address.show');
+            Route::get('/addresses/edit/{address}', 'edit')->name('address.edit');
+            Route::post('/addresses/update/{address}', 'update')->name('address.update');
+            Route::post('/addresses/destroy/{address}', 'destroy')->name('address.destroy');
+        });
+
+        Route::controller(ExperienceController::class)->group(function () {
+            Route::get('/experience', 'index')->name('experience.index');
+            Route::post('/experience/store', 'store')->name('experience.store');
+            Route::get('/experience/create', 'create')->name('experience.create');
+            Route::get('/experience/edit/{experience}', 'edit')->name('experience.edit');
+        });
+
+    });
 
 
 

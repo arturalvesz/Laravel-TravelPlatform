@@ -17,9 +17,9 @@ class isAdmin
     {
         $user = auth()->user();
 
-        if ($user->role == 'admin') {
+        if ($user->usertype == 'admin') {
             return $next($request);
         }
-        return redirect('home')->with('error', 'You dont have admin access');
+        return redirect('/')->with('error', 'You dont have admin access');
     }
 }

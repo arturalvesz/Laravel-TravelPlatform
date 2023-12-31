@@ -70,7 +70,7 @@
             currentBackground = (currentBackground + 1) % backgrounds.length;
         }
 
-        setInterval(changeBackground, 1000); // Change background every 60 seconds
+        setInterval(changeBackground, 10000); // Change background every 60 seconds
     });
 </script>
 

@@ -12,12 +12,25 @@ use App\Models\Photo;
 use App\Models\Day;
 use Carbon\Carbon;
 use App\Models\OrderExperience;
+
 class ExperienceController extends Controller
 {
     //
 
     public function index()
     {
+        $experiences = Experience::orderBy('id', 'asc')->paginate(10);
+
+        return view('experience.index', compact('experiences'));
+    }
+
+    public function create()
+    {
+        $users = User::all();
+        $categories = Category::all();
+        $days = Day::all();
+        $photo = Photo::all();
+        return view('experience.create', compact('categories', 'days', 'photo', 'users'));
     }
 
     public function show(Experience $experience)
@@ -40,24 +53,12 @@ class ExperienceController extends Controller
         return view('experience.createExperience', compact('categories', 'days', 'photo'));
     }
 
-    public function edit()
+    public function edit(Experience $experience)
     {
-    }
+        $users = User::all();
+        $categories = Category::all();
 
-    public function destroy(Experience $experience)
-    {
-
-        $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
-
-
-        $experience->day()->delete();
-        $experience->photo()->delete();
-
-        OrderExperience::whereIn('order_id', $orderIds)->delete();
-
-        $experience->delete();
-
-        return redirect('/')->with('success', 'Experience deleted successfully');
+        return view('experience.edit', compact('experience', 'categories', 'users'));
     }
 
     public function store(Request $request)
@@ -136,55 +137,69 @@ class ExperienceController extends Controller
             $startDate->addDay();
         }
 
-
         return redirect()->back()->with('success', 'Experience created successfully!');
     }
 
-    public function update(Request $request, Experience $experience)
+    public function updateExperience(Request $request, Experience $experience)
     {
-
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'user_id' => 'nullable|exists:users,id',
+            'user_id' => 'sometimes|integer',
             'price' => 'required|numeric',
             'category_id' => 'required|integer',
-            'duration' => 'nullable|required|integer',
+            'duration' => 'nullable|integer',
             'location' => 'required|string|max:50',
-
         ]);
 
         $experience->update($request->all());
 
-        return redirect()->back()->with('success', 'Experience created successfully!');
+
+        return redirect()->back()->with('success', 'Experience updated successfully!');
     }
 
     public function checkAvailability(Request $request, $experience)
     {
-          // Validate the input
-    $request->validate([
-        'selected_date' => 'required|date',
-        'num_tickets' => 'required|integer|min:1',
-    ]);
+        // Validate the input
+        $request->validate([
+            'selected_date' => 'required|date',
+            'num_tickets' => 'required|integer|min:1',
+        ]);
 
-    $selectedDate = $request->input('selected_date');
-    $numTickets = $request->input('num_tickets');
+        $selectedDate = $request->input('selected_date');
+        $numTickets = $request->input('num_tickets');
 
-    // Query the database to find available timeframes for the specific experience
-    $availableTimeframes = Day::where('experience_id', $experience)
-        ->where('date', $selectedDate)
-        ->where('max_people', '>=', $numTickets)
-        ->whereRaw('(max_people - people_registered) >= ?', [$numTickets])
-        ->pluck('timeframe');
+        // Query the database to find available timeframes for the specific experience
+        $availableTimeframes = Day::where('experience_id', $experience)
+            ->where('date', $selectedDate)
+            ->where('max_people', '>=', $numTickets)
+            ->whereRaw('(max_people - people_registered) >= ?', [$numTickets])
+            ->pluck('timeframe');
 
-    // Return the available timeframes as JSON
-    return response()->json(['available_timeframes' => $availableTimeframes]);
+        // Return the available timeframes as JSON
+        return response()->json(['available_timeframes' => $availableTimeframes]);
     }
 
-    public function showAvailability(Request $request, Experience $experience){
+    public function showAvailability(Request $request, Experience $experience)
+    {
 
         return view('experience.showAvailability', compact('experience'));
-
     }
-    
+
+    public function destroy(Experience $experience)
+    {
+
+        $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
+
+
+        $experience->day()->delete();
+        $experience->photo()->delete();
+
+        OrderExperience::whereIn('order_id', $orderIds)->delete();
+
+        $experience->delete();
+
+        return redirect('/')->with('success', 'Experience deleted successfully');
+    }
+
 }
