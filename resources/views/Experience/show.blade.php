@@ -77,10 +77,14 @@
         font-size: 18px;
         margin-bottom: -5px;
     }
+    .experience-location {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
 
     .small-phrase {
         font-size: 14px;
-        margin-bottom: 15px;
+        margin-bottom: 7px;
     }
 
     .photos-slider {
@@ -143,14 +147,17 @@
                     <div class="experience-description">{{ $experience->description }}</div>
                     <div class="experience-duration">Duration: {{ $experience->duration }} minutes</div>
                     <div class="small-phrase">Check availability to see starting time</div>
+                    <div class="experience-location">Location: {{ $experience->location }}</div>
                     <div class="experience-price">Price: {{ $experience->price }}€</div>
 
                     <div class="text-center">
                         @if(Auth::check() && Auth::user()->id === $experience->user_id)
-                        <form action="{{ route('experience.destroy', compact('experience')) }}" method="POST">
+                        <form action="{{ route('experience.destroy', compact('experience')) }}" method="POST" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline.success">View Days</a>
+
                         @endif
                     </div>
                 </div>

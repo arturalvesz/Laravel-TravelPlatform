@@ -159,13 +159,6 @@
         margin-bottom: 10px;
     }
 
-    .experience-description {
-        font-size: 14px;
-        color: #555;
-        text-align: left;
-        /* Align text to the left */
-    }
-
     *:focus {
         outline: none;
     }
@@ -240,6 +233,7 @@
                         <div class="experience-info">
                             <p class="experience-name">{{ $experience->name }}</p>
                             <p class="experience-duration">Duration: {{$experience->duration }} minutes</p>
+                            <p class="experience-location">Location: {{$experience->location }}</p>
                             <p class="experience-price">Price: {{ $experience->price }}€</p>
 
                         </div>

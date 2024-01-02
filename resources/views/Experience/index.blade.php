@@ -52,7 +52,7 @@
 </style>
 <div class="container">
     <h1 class="text-center mb-5 text-secondary">Experiences Index</h1>
-    <a class="btn btn-secondary float-right" href="{{ route('experience.store')}}">Add</a>
+    <a class="btn btn-secondary float-right" href="{{ route('experience.create')}}">Add</a>
     <h2 class="text-secondary">Experience</h2>
     <table class="table table-bordered table-striped">
         <thead>
@@ -88,6 +88,7 @@
                         @csrf
                         <a class="btn btn-outline-success" href="{{ route('experience.show', compact('experience')) }}">Show</a>
                         <a class="btn btn-outline-success" href="{{ route('experience.edit', compact('experience')) }}">Edit</a>
+                        <a class="btn btn-outline-success" href="{{ route('days.index', compact('experience')) }}">View Schedule</a>
                         <button type="submit" class="btn btn-outline-success">Delete</button>
                     </form>
                 </td>

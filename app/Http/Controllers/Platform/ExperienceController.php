@@ -74,7 +74,6 @@ class ExperienceController extends Controller
             'location' => 'required|string|max:50',
             'images' => 'array', // Ensure that 'photos' is an array
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each photo
-
         ]);
 
         $experience = new Experience();
@@ -86,11 +85,14 @@ class ExperienceController extends Controller
         $experience->duration = $request->input('duration');
         $experience->location = $request->input('location');
 
-        $experience->user_id = Auth::id();
-        if (Auth::id()) {
-            $user = User::find(Auth::id());
-            $user->experience()->save($experience);
+        // Set the user_id if it is provided in the request
+        if ($request->has('user_id')) {
+            $experience->user_id = $request->input('user_id');
+        } else {
+            // Default to the authenticated user if user_id is not provided
+            $experience->user_id = Auth::id();
         }
+
         $experience->save();
 
 
@@ -201,5 +203,4 @@ class ExperienceController extends Controller
 
         return redirect('/')->with('success', 'Experience deleted successfully');
     }
-
 }

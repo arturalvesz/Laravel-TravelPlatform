@@ -25,7 +25,7 @@
 <div class="container mt-5">
     <div class="row mb-5">
         <div class="col-6 offset-3">
-            <h1 class="text-center mb-5 text-danger">User Show</h1>
+            <h1 class="text-center mb-5 text-secondary">User Show</h1>
             <h2 class="text-secondary text-center">User Info</h2>
             <form>
                 <div class="form-group">

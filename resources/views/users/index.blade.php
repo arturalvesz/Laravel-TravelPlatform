@@ -52,7 +52,7 @@
     }
 </style>
 <div class="container">
-    <h1 class="text-center mb-5 text-danger">Users Index</h1>
+    <h1 class="text-center mb-5 text-secondary">Users Index</h1>
     <a class="btn btn-secondary float-right" href="{{ route('users.create')}}">Add</a>
     <h2 class="text-secondary">Users</h2>
     <table class="table table-bordered table-striped">

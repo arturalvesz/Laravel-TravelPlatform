@@ -20,6 +20,6 @@ class isTraveler
         if ($user->usertype == 'traveler') {
             return $next($request);
         }
-        return redirect('/home')->with('error', 'You dont have access to this page');
+        return redirect('/')->with('error', 'You dont have access to this page');
     }
 }

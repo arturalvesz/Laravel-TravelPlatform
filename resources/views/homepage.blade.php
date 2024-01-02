@@ -156,9 +156,6 @@ a:focus {
     color: inherit !important;
 }
 
-a.btn.btn-outline-success {
-        color: #fff !important;
-    }
 
 .experience-price {
         color: #198754;
@@ -204,6 +201,7 @@ a.btn.btn-outline-success {
 .navbar-admin{
     margin-top: -23px;
 }
+
 </style>
 
 
@@ -286,8 +284,7 @@ a.btn.btn-outline-success {
                 @csrf
             </form>
             @else
-            <!-- Button for users with usertype 'local' -->
-            <a class="btn btn-outline-success custom-black-text" href="{{route('experience.createExperience')}}">Upload Experience</a>
+            <a class="btn btn-success" href="{{route('experience.createExperience')}}">Upload Experience</a>
             @endif
 
             <div class="btn" style="background-color:transparent; border-color: transparent;">
@@ -351,6 +348,8 @@ a.btn.btn-outline-success {
                 <div class="experience-info">
                     <p class="experience-name">{{ $experience->name }}</p>
                     <p class="experience-duration">Duration: {{ $experience->duration }} minutes</p>
+                    <p class="experience-location">Location: {{ $experience->location }}</p>
+
                     <p class="experience-price">Price: {{ $experience->price }}€</p>
                 </div>
             </div>
@@ -362,7 +361,7 @@ a.btn.btn-outline-success {
 </div>
 </div>
 
-<footer class="py-5 bg-green ">
+<footer class="py-4 bg-green ">
     <div class="container">
         <p class="m-0 text-center text-white">&copy; 2023 Made in Universidade Fernando Pessoa.</p>
     </div>

@@ -1,9 +1,34 @@
 @extends('layouts.app')
 @section('content')
+
+<style>
+body {
+        margin: 0;
+        padding: 0;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+</style>
+
 <div class="container mt-5">
     <div class="row mb-5">
         <div class="col-6 offset-3">
-            <h1 class="text-center mb-5 text-danger">Experience Edit</h1>
+            <h1 class="text-center mb-5 text-secondary">Experience Edit</h1>
             <h2 class="text-secondary text-center">Experience Info</h2>
             <br>
             <form method="post" action="{{ route('experience.updateExperience',  compact('experience')) }}">

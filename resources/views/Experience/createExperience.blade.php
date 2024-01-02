@@ -48,9 +48,19 @@
         box-shadow: 0 0 10px #198754;
     }
 
+    .form-select:focus{
+        outline-color: #ffffff;
+        border-color: #ffffff;
+        box-shadow: 0 0 10px #198754;
+    }
+
     .form-control {
         border-radius: 15px;
     }
+    .form-select {
+        border-radius: 15px;
+    }
+
 
     .btn-submit {
         margin-top: 10px;
@@ -92,7 +102,6 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-            <!-- Your existing Create New Experience Form -->
             <div class="card">
                 <div class="card-body content">
                     <h2 class="text-secondary title">Create an Experience</h2>
@@ -122,6 +131,8 @@
                         </div>
 
                         <div class="form-group">
+                        <label for="text">Category:</label>
+
                             <select name="category_id" id="category_id" class="form-control" placeholder="Categories" required>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -132,6 +143,7 @@
                         </div>
 
                         <div class="form-group">
+                        <label for="duration">Duration:</label>
                             <input type="number" name="duration" id="duration" class="form-control" value="{{ old('duration') }}" placeholder="Duration (in minutes)" required>
                         </div>
 
