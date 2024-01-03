@@ -155,7 +155,7 @@
                     $photoroute = "profile.updatePhoto";
                     @endphp
                     @else
-                    <img src="{{ asset('storage/images/stock.jpg') }}" alt="Default Photo" class="rounded-image mb-4" width="150">
+                    <img src="{{ asset('/defImages/stock.jpg') }}" alt="Default Photo" class="rounded-image mb-4" width="150">
                     @php
                     $photoroute = 'profile.storePhoto';
                     @endphp

@@ -12,6 +12,7 @@ use App\Models\Address;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Experience;
+use App\Models\Review;
 
 class ProfileController extends Controller
 {
@@ -23,6 +24,7 @@ class ProfileController extends Controller
         $userAuth = Auth::user();
         $address = $user->address;
         $userExperiences = $user->experience()->distinct()->paginate(4);
+        $reviews = Review::where('user_id', $user->id)->get();
 
         return view('profile.show', compact('user', 'photo', 'address', 'userAuth','userExperiences'));
     }

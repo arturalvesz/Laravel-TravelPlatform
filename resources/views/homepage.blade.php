@@ -103,7 +103,7 @@
         border-radius: 24px;
         overflow: hidden;
         margin: 10px;
-        height: 450px;
+        height: 475px;
         width: 300px;
         outline: none;
         position: relative;
@@ -145,7 +145,9 @@
         /* Make the link a block element to fill the container */
         outline: none;
     }
-
+    .checked{
+        color:orange;
+    }
     a,
 a:visited,
 a:hover,
@@ -349,8 +351,24 @@ a:focus {
                     <p class="experience-name">{{ $experience->name }}</p>
                     <p class="experience-duration">Duration: {{ $experience->duration }} minutes</p>
                     <p class="experience-location">Location: {{ $experience->location }}</p>
-
                     <p class="experience-price">Price: {{ $experience->price }}€</p>
+
+                    @if($experience->reviews->isNotEmpty())
+                    @php
+                    $averageRating = $experience->reviews->first()->average_rating;
+                    @endphp
+                    <p class="experience-rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $averageRating)
+                        <span class="fa fa-star checked"></span>
+                    @else
+                        <span class="fa fa-star"></span>
+                    @endif
+                    @endfor
+                    </p>
+                    @else
+                    <p class="experience-rating">No ratings yet.</p>
+                    @endif
                 </div>
             </div>
         </a>

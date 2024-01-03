@@ -13,6 +13,7 @@
     use App\Http\Controllers\User\AddressController;
     use App\Http\Controllers\User\PhotoController;
     use App\Http\Controllers\Platform\CategoryController;
+    use App\Http\Controllers\Platform\ReviewController;
 
     /*
     |--------------------------------------------------------------------------
@@ -72,11 +73,9 @@
 
             Route::get('/days/{experience}/{day}/edit', 'edit')->name('days.edit');
             Route::post('/days/{experience}/{day}', 'update')->name('days.update');
-            Route::post('/days/destroy/{day}',  'destroy')->name('days.destroy');
+            Route::delete('/days/{day}', 'destroy')->name('days.destroy');
             Route::get('/days/{experience}', 'index')->name('days.index');
         });
-
-        
 
         Route::controller(ExperienceController::class)->group(function () {
             Route::get('/experience/createExperience', 'createExperience')->name('experience.createExperience');
@@ -90,6 +89,10 @@
         });
 
         Route::post('experience/storeDay', [DayController::class, 'storeDay'])->name('experience.storeDay');
+
+    
+        Route::get('/experience/review/create/{order_experience}/{experience}',[ReviewController::class,'create'])->name('review.create');
+        Route::post('/experience/review/store', [ReviewController::class,'store'])->name('review.store');
 
     });
 

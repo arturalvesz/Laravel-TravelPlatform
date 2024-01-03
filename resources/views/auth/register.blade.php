@@ -35,7 +35,7 @@
     body {
         margin: 0;
         padding: 0;
-        background: url('/backgroundImages/bg1.jpg') no-repeat center fixed;
+        background: url('/defImages/bg1.jpg') no-repeat center fixed;
         background-size: cover;
     }
 

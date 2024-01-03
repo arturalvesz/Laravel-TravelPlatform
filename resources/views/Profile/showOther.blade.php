@@ -120,7 +120,7 @@
         margin-bottom: 20px;
         flex: 0 0 48%;
         /* Adjust the width as needed for two cards side by side */
-        height: 450px;
+        height: 500px;
         width: 400px;
         outline: none;
         margin-left: auto;
@@ -181,12 +181,17 @@
     .experience-price {
         color: #198754;
     }
+
     .experiences-available-message {
         text-align: center;
         font-size: 1.5em;
         font-weight: bold;
         color: #555;
         margin-top: 20px;
+    }
+
+    .checked {
+        color: orange;
     }
 </style>
 
@@ -203,8 +208,34 @@
                     <div class="user-info">
                         <p class="user-name">{{ $user->name }}</p>
                         <p class="user-email">{{ $user->email }}</p>
+
+                        @php
+                        $userExperiencesReviews = collect();
+                        foreach ($userExperiences as $experience) {
+                        $userExperiencesReviews = $userExperiencesReviews->merge($experience->reviews);
+                        }
+
+                        if($userExperiencesReviews->count() > 0) {
+                        $averageRating = $userExperiencesReviews->avg('starRating');
+                        @endphp
+
+                        <p class="user-rating">
+                            Average Rating:
+                            @for ($i = 1; $i <= 5; $i++) @if ($i <=$averageRating) <span class="fa fa-star checked"></span>
+                                @else
+                                <span class="fa fa-star"></span>
+                                @endif
+                                @endfor
+                                ({{ $userExperiencesReviews->count() }} ratings)
+                        </p>
+                        @php
+                        } else {
+                        @endphp
+                        <p class="user-rating">No ratings yet.</p>
+                        @php
+                        }
+                        @endphp
                     </div>
-                    <!-- You can add more buttons or actions here based on your requirements -->
                 </div>
             </div>
         </div>
@@ -226,7 +257,7 @@
                             @empty
                             <!-- Display a default image or a placeholder if there are no photos -->
                             <div class="experience-image">
-                                <img src="{{ asset('/defImages/placeholder.jpg') }}" alt="No Photo" style="width: 100%; height:100%;">
+                                <img src="{{ asset('/defImages/stock.jpg') }}" alt="No Photo" style="width: 100%; height:100%;">
                             </div>
                             @endforelse
                         </div>
@@ -235,6 +266,20 @@
                             <p class="experience-duration">Duration: {{$experience->duration }} minutes</p>
                             <p class="experience-location">Location: {{$experience->location }}</p>
                             <p class="experience-price">Price: {{ $experience->price }}€</p>
+
+                            <!-- Display average rating stars -->
+                            @php
+                            $averageRating = $experience->reviews->avg('starRating');
+                            @endphp
+                            <p class="experience-rating">
+                                Average Rating:
+                                @for ($i = 1; $i <= 5; $i++) @if ($i <=$averageRating) <span class="fa fa-star checked"></span>
+                                    @else
+                                    <span class="fa fa-star"></span>
+                                    @endif
+                                    @endfor
+                                    ({{ $experience->reviews->count() }} ratings)
+                            </p>
 
                         </div>
                     </div>

@@ -76,8 +76,9 @@
                 <td>{{ $day->max_people }}</td>
                 <td>{{ $day->people_registered }}</td>
                 <td>
-                <form action=" {{ route('days.destroy', compact('day','experience')) }} " method="POST">
+                <form action=" {{ route('days.destroy', ['day' => $day, 'experience' => $experience]) }} " method="POST">
                         @csrf
+                        @method('DELETE')
                         <a class="btn btn-outline-success" href="{{ route('days.edit', compact('day','experience')) }}">Edit</a>
                         <button type="submit" class="btn btn-outline-success">Delete</button>
                     </form>

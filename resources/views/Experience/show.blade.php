@@ -77,6 +77,7 @@
         font-size: 18px;
         margin-bottom: -5px;
     }
+
     .experience-location {
         font-size: 18px;
         margin-bottom: 10px;
@@ -123,6 +124,10 @@
         font-size: 15px;
         /* Reduce font size */
     }
+
+    .checked {
+        color: orange;
+    }
 </style>
 
 <div class="container">
@@ -156,7 +161,7 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline.success">View Days</a>
+                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Days</a>
 
                         @endif
                     </div>
@@ -168,6 +173,34 @@
         <a href="{{ route('experience.showAvailability', ['experience' => $experience->id]) }}" class="btn btn-outline-success check-availability-btn">
             Check Availability
         </a>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Reviews and Ratings</h2>
+
+        @forelse ($reviews as $review)
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">User: {{ $review->user->name }}</h5>
+                <p class="card-text">
+                    Rating:
+                    @for ($i = 1; $i <= 5; $i++) @if ($i <=$review->starRating)
+                        <span class="fa fa-star checked"></span>
+                        @else
+                        <span class="fa fa-star"></span>
+                        @endif
+                        @endfor
+                </p>
+                <p class="card-text">{{ $review->comment }}</p>
+            </div>
+        </div>
+        @empty
+        <div class="text-center">
+            <p>No reviews available.</p>
+        </div>
+        @endforelse
+
+        {{ $reviews->links('pagination::bootstrap-5') }}
     </div>
 
 </div>

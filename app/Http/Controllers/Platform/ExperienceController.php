@@ -12,6 +12,7 @@ use App\Models\Photo;
 use App\Models\Day;
 use Carbon\Carbon;
 use App\Models\OrderExperience;
+use App\Models\Review;
 
 class ExperienceController extends Controller
 {
@@ -40,8 +41,10 @@ class ExperienceController extends Controller
         $userAuth = Auth::user();
         $address = $experience->address;
         $day = $experience->day;
+        $reviews = Review::whereIn('order_experience_id', $experience->orderExperiences->pluck('id'))->paginate(5);
+        
 
-        return view('experience.show', compact('experience', 'photo', 'address', 'userAuth', 'day'));
+        return view('experience.show', compact('experience', 'photo', 'address', 'userAuth', 'day','reviews'));
     }
 
     public function createExperience()

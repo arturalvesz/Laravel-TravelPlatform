@@ -30,8 +30,8 @@ class DayController extends Controller
     }
     public function index(Experience $experience)
     {
-        $days = Day::where('experience_id', $experience->id)->get();
-        $days = Day::orderBy('id', 'asc')->paginate(10);
+        $days = Day::where('experience_id', $experience->id)->orderBy('id', 'asc')->paginate(10);
+
 
         return view('days.index', compact('days','experience'));
     }

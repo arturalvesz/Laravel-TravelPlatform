@@ -39,4 +39,9 @@ class Experience extends Model
     public function orderExperiences(){
         return $this->hasMany(OrderExperience::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasManyThrough(Review::class, OrderExperience::class);
+    }
 }

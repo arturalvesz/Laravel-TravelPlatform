@@ -48,9 +48,9 @@
     <div class="row mb-5 justify-content-center">
         <div class="col-6">
             <h2 class="text-secondary text-center">Order Info</h2>
-            @foreach($order->orderExperiences as $orderExperience)
+            @foreach($order->orderExperiences as $order_experience)
             @php
-            $experience = $experiences->where('id', $orderExperience->experience_id)->first();
+            $experience = $experiences->where('id', $order_experience->experience_id)->first();
             @endphp
 
             <div class="card mb-3 mx-auto">
@@ -62,14 +62,18 @@
 
                     <div class="form-group">
                         <label for="num_tickets">Number of tickets</label>
-                        <input type="text" class="form-control text-left" id="num_tickets" name="num_tickets" value="{{ old('num_tickets', $orderExperience->num_tickets)}}" disabled>
+                        <input type="text" class="form-control text-left" id="num_tickets" name="num_tickets" value="{{ old('num_tickets', $order_experience->num_tickets)}}" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input type="text" class="form-control text-left" id="price" name="price" value="{{ old('price', $orderExperience->price)}}" disabled>
+                        <input type="text" class="form-control text-left" id="price" name="price" value="{{ old('price', $order_experience->price)}}" disabled>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group text-center">
+                <a class="btn btn-outline-success d-inline-block align-middle" href="{{ route('review.create', ['order_experience'=>$experience, 'experience'=>$experience]) }}">Create a Review</a>
             </div>
 
             @endforeach
@@ -78,6 +82,8 @@
             <div class="form-group text-center">
                 <a class="btn btn-success" href="/orders">Go Back</a>
             </div>
+
+
         </div>
     </div>
 </div>
