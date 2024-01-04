@@ -18,9 +18,4 @@ class OrderExperience extends Model
     public function experience(){
         return $this->belongsTo(Order::class);
     }
-
-    public function reviews()
-    {
-        return Review::where('order_experience_id', $this->id)->get();
-    }
 }

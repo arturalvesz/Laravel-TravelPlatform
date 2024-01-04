@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('path');
-            $table->foreignId('user_id')->nullable()->constrained;
-            $table->foreignId('experience_id')->nullable()->constrained;
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('experience_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

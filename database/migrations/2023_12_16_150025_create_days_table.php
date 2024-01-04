@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('days', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('experience_id')->constrained();
+            $table->foreignId('experience_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->time('timeframe');
             $table->timestamps();

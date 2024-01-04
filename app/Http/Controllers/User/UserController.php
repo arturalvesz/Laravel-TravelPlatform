@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
+use App\Models\Experience;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -76,8 +79,19 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        // Check if the authenticated user is deleting their own account
+        if (Auth::user() && Auth::user()->id === $user->id) {
+            // Logout the user
+            Auth::logout();
+    
+            // Redirect to the registration page
+            return redirect()->route('register')->with('success', 'Your account has been deleted successfully. Register a new account.');
+        }
+    
+        // Delete the user
         $user->delete();
-
+    
+        // Redirect back with a success message
         return redirect()->back()->with('success', 'User deleted successfully');
     }
 

@@ -184,6 +184,7 @@ class ExperienceController extends Controller
         // Return the available timeframes as JSON
         return response()->json(['available_timeframes' => $availableTimeframes]);
     }
+    
 
     public function showAvailability(Request $request, Experience $experience)
     {
@@ -194,8 +195,8 @@ class ExperienceController extends Controller
     public function destroy(Experience $experience)
     {
 
-        $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
 
+        $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
 
         $experience->day()->delete();
         $experience->photo()->delete();

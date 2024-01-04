@@ -8,7 +8,7 @@
 
             <div class="row">
                 <div class="list-unstyled">
-                    <h4 class="text-black">Seller name: {{$order->user->name}}</h4>
+                    <h4 class="text-black">Buyer name: {{$order->user->name}}</h4>
                 </div>
                 @foreach($cart as $item)
                 <hr>

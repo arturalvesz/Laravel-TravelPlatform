@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('order_experiences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained();
-            $table->foreignId('experience_id')->constrained();
+            $table->foreignId('order_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('experience_id')->constrained()->onDelete('cascade');
             $table->integer('num_tickets');
             $table->float('price');
             $table->timestamps();

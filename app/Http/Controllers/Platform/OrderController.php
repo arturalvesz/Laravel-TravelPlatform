@@ -38,4 +38,6 @@ class OrderController extends Controller
             'Content-Type' => 'application/pdf',
         ]);
     }
+
+    
 }

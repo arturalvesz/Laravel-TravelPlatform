@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('status');
             $table->float('totalPrice');
             $table->string('session_id');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
