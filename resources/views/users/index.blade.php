@@ -76,7 +76,7 @@
                         @csrf
                         <a class="btn btn-outline-success" href="{{ route('users.show', compact('user')) }}">Show</a>
                         <a class="btn btn-outline-success" href="{{ route('users.edit', compact('user')) }}">Edit</a>
-                        <button type="submit" class="btn btn-outline-success">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
                 <td>

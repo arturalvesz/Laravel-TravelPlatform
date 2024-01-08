@@ -252,6 +252,7 @@ a:focus {
                     <li><a class="dropdown-item" href="{{ route('address.index') }}">Addresses</a></li>
                     <li><a class="dropdown-item" href="{{ route('photo.index') }}">Photos</a></li>
                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
+                    <li><a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a></li>
                     <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>
@@ -317,7 +318,6 @@ a:focus {
 <div class="category-container">
     <div class="category-header">
         <div id="imageContainer" style="width: 100%; height: 800px;"></div>
-        <!-- Add your tabs here -->
         <ul class="nav nav-tabs" id="experiencesTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true" onclick="changeImage('all')">All Experiences</a>
@@ -328,7 +328,6 @@ a:focus {
                 </li>
             @endforeach
         </ul>
-        <!-- Add an empty image container that will be updated based on the tab clicked -->
     </div>
 
     <div class="col-md-12 experiences-wrapper">
@@ -424,7 +423,7 @@ a:focus {
                 break;
             @foreach($categories as $category)
                 case 'category{{ $category->id }}':
-                    imageContainer.innerHTML = '<img src="{{ asset('/defImages/bgcat'.$category->id.'.jpg') }}" alt="{{ $category->name }}" style="width: 100%; height: 800px;">';
+                    imageContainer.innerHTML = '<img src="{{ asset('/defImages/bgcat'.$category->name.'.jpg') }}" alt="{{ $category->name }}" style="width: 100%; height: 800px;">';
                     showExperiencesByCategory({{ $category->id }});
                     break;
             @endforeach
@@ -476,7 +475,6 @@ function searchExperiences() {
         var experienceName = experience.querySelector('.experience-name').innerText.toLowerCase();
         var experienceCategoryId = experience.getAttribute('data-category-id');
 
-        // Check if the experience is in the active tab's category
         if ((activeTab === 'all-tab' && experienceName.includes(searchInput)) ||
             (activeTab === 'tab' + experienceCategoryId && experienceName.includes(searchInput))) {
             experience.style.display = 'flex';

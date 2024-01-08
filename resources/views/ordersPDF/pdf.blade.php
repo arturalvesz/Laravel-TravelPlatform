@@ -20,7 +20,7 @@
                     <p>Experience: {{$experienceName}}</p>
                 </div>
                 <div class="col-xl-2">
-                    <p class="float-end"> Number of Entries: {{ $item['num_tickets'] }}</p>
+                    <p class="float-end">Number of Entries: {{ $item['num_tickets'] }}</p>
                     <p class="float-end">Date: {{ $item['selected_date'] }}</p>
                     <p class="float-end">Entry time: {{ $item['selected_timeframe'] }}</p>
                     <p class="float-end">Price: {{ $item['price'] }}€</p>
@@ -28,7 +28,7 @@
                 <hr>
             </div>
             @php
-            $total += $item['price']; // Add the current item's price to total
+            $total += $item['price'];
             @endphp
             @endforeach
             <div class="row text-black">

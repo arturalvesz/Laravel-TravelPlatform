@@ -162,6 +162,8 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Days</a>
+                        <a class="btn btn-outline-success" href="{{ route('experience.edit', compact('experience')) }}">Edit</a>
+
 
                         @endif
                     </div>

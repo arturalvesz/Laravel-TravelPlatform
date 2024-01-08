@@ -48,7 +48,7 @@
         box-shadow: 0 0 10px #198754;
     }
 
-    .form-select:focus{
+    .form-select:focus {
         outline-color: #ffffff;
         border-color: #ffffff;
         box-shadow: 0 0 10px #198754;
@@ -57,6 +57,7 @@
     .form-control {
         border-radius: 15px;
     }
+
     .form-select {
         border-radius: 15px;
     }
@@ -131,7 +132,7 @@
                         </div>
 
                         <div class="form-group">
-                        <label for="text">Category:</label>
+                            <label for="text">Category:</label>
 
                             <select name="category_id" id="category_id" class="form-control" placeholder="Categories" required>
                                 @foreach($categories as $category)
@@ -143,7 +144,7 @@
                         </div>
 
                         <div class="form-group">
-                        <label for="duration">Duration:</label>
+                            <label for="duration">Duration:</label>
                             <input type="number" name="duration" id="duration" class="form-control" value="{{ old('duration') }}" placeholder="Duration (in minutes)" required>
                         </div>
 
@@ -153,24 +154,42 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="images" >Choose Images</label>
+                            <label for="images">Choose Images</label>
                             <input type="file" name="images[]" id="images" class="form-control" accept="image/*" multiple>
                         </div>
 
 
                         <!-- Add a schedule card for user-defined timestamps -->
+                        <!-- Add a schedule card for user-defined timestamps -->
                         <div class="card schedule-card mt-4">
                             <div class="card-body">
                                 <h4 class="text-secondary title mb-3">Experience Schedule</h4>
+
+                                @php
+                                $hasScheduleEntries = false;
+                                @endphp
 
                                 @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
                                 <div class="form-group">
                                     <label for="{{ strtolower($day) }}">{{ $day }}:</label>
                                     <input type="text" name="schedule[{{ strtolower($day) }}]" id="{{ strtolower($day) }}" class="form-control" placeholder="Enter timestamps for {{ $day }} (e.g., 10:00, 12:00), leave blank if not open this day ">
+                                    @php
+                                    if (!empty(request('schedule')[strtolower($day)])) {
+                                    $hasScheduleEntries = true;
+                                    }
+                                    @endphp
                                 </div>
                                 @endforeach
+
+                                @if (!$hasScheduleEntries && request()->isMethod('post'))
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Experience was not created. Please provide at least one schedule entry.
+                                </div>
+                                @endif
                             </div>
                         </div>
+
+
 
                         <button type="submit" class="btn btn-outline-success">
                             Create Experience

@@ -89,7 +89,7 @@
                         <a class="btn btn-outline-success" href="{{ route('experience.show', compact('experience')) }}">Show</a>
                         <a class="btn btn-outline-success" href="{{ route('experience.edit', compact('experience')) }}">Edit</a>
                         <a class="btn btn-outline-success" href="{{ route('days.index', compact('experience')) }}">View Schedule</a>
-                        <button type="submit" class="btn btn-outline-success">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>

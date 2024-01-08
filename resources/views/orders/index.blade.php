@@ -58,7 +58,7 @@
             <table class="table">
                 <thead class="thead">
                     <tr>
-                        @if(auth()->user()->user_type === 'admin')
+                        @if(auth()->user()->usertype === 'admin')
                         <th style="width: 10%">ID</th>
                         @endif
                         <th style="width: 10%">Status</th>
@@ -69,7 +69,7 @@
                 <tbody>
                     @foreach ($orders as $order)
                     <tr>
-                        @if(auth()->user()->user_type === 'admin')
+                        @if(auth()->user()->usertype === 'admin')
                         <td>{{ $order->id }}</td>
                         @endif
                         <td>{{ $order->status }}</td>

@@ -114,8 +114,11 @@ class ExperienceController extends Controller
             }
         }
 
+        //Handle schedule creation
         $startDate = Carbon::tomorrow();
         $endDate = $startDate->copy()->addMonths(3);
+        $hasScheduleEntries = false;
+
 
         while ($startDate->lte($endDate)) {
             $day = strtolower($startDate->format('l'));
@@ -135,11 +138,21 @@ class ExperienceController extends Controller
 
                     // Save the day
                     $experience->day()->save($dayModel);
+
+                    $hasScheduleEntries = true;
+
                 }
             }
-
             // Move to the next day
             $startDate->addDay();
+        }
+
+        
+        if (!$hasScheduleEntries) {
+            // Rollback the transaction or delete the experience to ensure it's not saved without schedule entries
+            $experience->rollback();
+            
+            return redirect()->back()->with('error', 'Please provide at least one schedule entry.');
         }
 
         return redirect()->back()->with('success', 'Experience created successfully!');
@@ -181,14 +194,13 @@ class ExperienceController extends Controller
             ->whereRaw('(max_people - people_registered) >= ?', [$numTickets])
             ->pluck('timeframe');
 
-        // Return the available timeframes as JSON
+        // Return the available timeframes
         return response()->json(['available_timeframes' => $availableTimeframes]);
     }
     
 
     public function showAvailability(Request $request, Experience $experience)
     {
-
         return view('experience.showAvailability', compact('experience'));
     }
 

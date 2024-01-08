@@ -74,7 +74,7 @@ class UserController extends Controller
         $user = auth()->user();
         $user->update(['usertype' => 'local']);
 
-        return redirect()->back()->with('success', 'Photo updated successfully');
+        return redirect()->back()->with('success', 'You are a local');
     }
 
     public function destroy(User $user)

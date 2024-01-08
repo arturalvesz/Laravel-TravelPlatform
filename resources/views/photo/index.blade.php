@@ -79,7 +79,7 @@ body {
                                 @csrf
                                 <a class="btn btn-outline-success" href="{{ route('photo.show', compact('photo')) }}">Show</a>
                                 <a class="btn  btn-outline-success" href="{{ route('photo.edit', compact('photo')) }}">Edit</a>
-                                <button type="submit" class="btn btn-outline-success">Delete</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>

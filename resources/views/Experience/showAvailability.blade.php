@@ -122,7 +122,7 @@ body {
     /* Hide the Add to Cart button initially */
     #availability-page #add-to-cart-button {
         display: none;
-    }
+    }   
 
 </style>
 

@@ -6,6 +6,6 @@
 
 <style>
     .bg-green {
-        background-color: #0e471e; /* Dark Green color */
+        background-color: #0e471e; 
     }
 </style>

@@ -59,7 +59,9 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                @if(auth()->user()->usertype === 'admin')
                 <th>Day ID</th>
+                @endif
                 <th>Date</th>
                 <th>Timeframe</th>
                 <th>Max People</th>
@@ -70,17 +72,19 @@
         <tbody>
             @foreach ($days as $day)
             <tr>
+                @if(auth()->user()->usertype === 'admin')
                 <td>{{ $day->id }}</td>
+                @endif
                 <td>{{ $day->date }}</td>
                 <td>{{ $day->timeframe }}</td>
                 <td>{{ $day->max_people }}</td>
                 <td>{{ $day->people_registered }}</td>
                 <td>
-                <form action=" {{ route('days.destroy', ['day' => $day, 'experience' => $experience]) }} " method="POST">
+                    <form action=" {{ route('days.destroy', ['day' => $day, 'experience' => $experience]) }} " method="POST">
                         @csrf
                         @method('DELETE')
                         <a class="btn btn-outline-success" href="{{ route('days.edit', compact('day','experience')) }}">Edit</a>
-                        <button type="submit" class="btn btn-outline-success">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>

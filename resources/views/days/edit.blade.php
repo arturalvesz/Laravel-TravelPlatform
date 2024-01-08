@@ -4,8 +4,6 @@
 
 <style>
     .row {
-        max-width: 600px;
-        /* Adjust the maximum width as needed */
         margin-top: 5rem;
     }
 

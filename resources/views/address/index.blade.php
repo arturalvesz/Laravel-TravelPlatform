@@ -91,7 +91,7 @@ body {
                         @csrf
                         <a class="btn btn-outline-success" href="{{ route('address.show', compact('address')) }}">Show</a>
                         <a class="btn btn-outline-success" href="{{ route('address.edit', compact('address')) }}">Edit</a>
-                        <button type="submit" class="btn btn-outline-success">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>

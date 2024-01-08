@@ -46,6 +46,7 @@
                     <li><a class="dropdown-item" href="{{ route('address.index') }}">Addresses</a></li>
                     <li><a class="dropdown-item" href="{{ route('photo.index') }}">Photos</a></li>
                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
+                    <li><a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a></li>
                     <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>

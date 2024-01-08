@@ -24,7 +24,7 @@ class HomePageController extends Controller
         $experiences = Experience::with(['reviews' => function ($query) {
             $query->select('experience_id', DB::raw('AVG(starRating) as average_rating'))
                 ->groupBy('experience_id');
-        }])->paginate(10);
+        }])->paginate(8);
         
 
         return view('homepage', compact('categories','experiences'));

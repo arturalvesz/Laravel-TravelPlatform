@@ -15,4 +15,5 @@ class Category extends Model
     public function experiences(){
         return $this->hasMany(Experience::class);
     }
+    
 }

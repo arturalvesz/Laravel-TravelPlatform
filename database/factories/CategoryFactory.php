@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
@@ -16,8 +17,16 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $categories = [
+            'Nature',
+            'Sports',
+            'Culture',
+            'Radical',
+            'Food',
+        ];
+
         return [
-            'name' => $this->faker->randomElement(['Nature', 'Sports', 'Culture', 'Radical', 'Food']),
+            'name' => $this->faker->unique()->randomElement($categories),
         ];
     }
 }

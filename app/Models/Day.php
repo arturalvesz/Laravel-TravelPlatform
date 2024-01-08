@@ -21,4 +21,5 @@ class Day extends Model
     {
         return $this->belongsTo(Experience::class);
     }
+    
 }

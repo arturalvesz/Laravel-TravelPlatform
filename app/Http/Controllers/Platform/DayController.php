@@ -14,20 +14,6 @@ use App\Models\User;
 class DayController extends Controller
 {
 
-    public function showTimeframes(Request $request)
-    {
-        $selectedDayId = $request->input('selectedDay');
-        $selectedDay = Day::find($selectedDayId);
-
-        // Retrieve the timeframes for the selected day
-        $timeframes = $selectedDay->timeframes;
-
-        // Pass the data to the Blade view
-        return view('your.blade.view', [
-            'selectedDay' => $selectedDay,
-            'timeframes' => $timeframes,
-        ]);
-    }
     public function index(Experience $experience)
     {
         $days = Day::where('experience_id', $experience->id)->orderBy('id', 'asc')->paginate(10);
@@ -58,8 +44,6 @@ class DayController extends Controller
     $day->max_people = $request->input('max_people');
 
     $day->save();
-
-
 
     return redirect()->back()->with('success', 'Day updated successfully!');
 }
