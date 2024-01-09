@@ -51,9 +51,11 @@ class LoginTest extends TestCase
      */
     public function testEmailNotMatching()
     {
-        $isValidEmail = filter_var(self::INVALID_EMAIL, FILTER_VALIDATE_EMAIL) !== false;
+        // Check if the email is not valid or its length is outside the allowed range
+        $isInvalidEmail = !filter_var(self::INVALID_EMAIL, FILTER_VALIDATE_EMAIL);
         $isValidLength = strlen(self::INVALID_EMAIL) >= 8 && strlen(self::INVALID_EMAIL) <= 255;
 
-        $this->assertFalse($isValidEmail && $isValidLength);
+        // Assert that either the email is not valid or its length is outside the allowed range
+        $this->assertTrue($isInvalidEmail || !$isValidLength);
     }
 }
