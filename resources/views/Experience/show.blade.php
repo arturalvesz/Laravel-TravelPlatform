@@ -143,11 +143,15 @@
                         Experience provider: <a href="{{ route('profile.show', $experience->user) }}">{{ $experience->user->name }}</a>
                     </div>
                     <div class="photos-slider">
-                        @foreach($experience->photo as $photo)
+                        @forelse($experience->photo as $photo)
                         <div>
                             <img src="{{ asset('storage/images/' . $photo->path) }}" alt="{{ $photo->name }}" class="photo">
                         </div>
-                        @endforeach
+                        @empty
+                        <div class="experience-image">
+                            <img src="{{ asset('/defImages/expStock.jpg') }}" alt="No Photo" class="photo">
+                        </div>
+                        @endforelse
                     </div>
                     <div class="experience-description">{{ $experience->description }}</div>
                     <div class="experience-duration">Duration: {{ $experience->duration }} minutes</div>

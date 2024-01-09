@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Category::factory(5)->create();
         Experience::factory(10)->create();
-        Day::factory(20)->create();
+        Day::factory(50)->create();
     }
 }

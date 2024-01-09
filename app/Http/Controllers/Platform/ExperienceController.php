@@ -13,6 +13,8 @@ use App\Models\Day;
 use Carbon\Carbon;
 use App\Models\OrderExperience;
 use App\Models\Review;
+use Illuminate\Support\Facades\DB;
+
 
 class ExperienceController extends Controller
 {
@@ -114,6 +116,22 @@ class ExperienceController extends Controller
             }
         }
 
+        $timestampsValid = false;
+        foreach ($request->input('schedule') as $day => $timestamps) {
+            if (strpos($timestamps, ',')) {
+                $timestampsValid = true;
+                break;
+            }
+        }
+    
+        if (!$timestampsValid) {
+
+            $experience->delete();  
+
+            return redirect()->back()->with('error', 'Timestamps should be separated by commas.');
+        }
+
+
         //Handle schedule creation
         $startDate = Carbon::tomorrow();
         $endDate = $startDate->copy()->addMonths(3);
@@ -150,7 +168,7 @@ class ExperienceController extends Controller
         
         if (!$hasScheduleEntries) {
             // Rollback the transaction or delete the experience to ensure it's not saved without schedule entries
-            $experience->rollback();
+            $experience->delete();
             
             return redirect()->back()->with('error', 'Please provide at least one schedule entry.');
         }

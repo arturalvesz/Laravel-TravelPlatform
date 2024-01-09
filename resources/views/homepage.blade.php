@@ -342,7 +342,7 @@ a:focus {
                     </div>
                     @empty
                     <div class="experience-image">
-                        <img src="{{ asset('/defImages/placeholder.jpg') }}" alt="No Photo" style="width: 100%; height:100%;">
+                        <img src="{{ asset('/defImages/expStock.jpg') }}" alt="No Photo" style="width: 100%; height:100%;">
                     </div>
                     @endforelse
                 </div>
