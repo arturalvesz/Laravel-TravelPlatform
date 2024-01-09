@@ -52,7 +52,7 @@ class LoginTest extends TestCase
     public function testEmailNotMatching()
     {
         $this->assertTrue(
-            !filter_var(self::INVALID_EMAIL, FILTER_VALIDATE_EMAIL) !== false &&
+            filter_var(self::INVALID_EMAIL, FILTER_VALIDATE_EMAIL) !== false &&
             strlen(self::INVALID_EMAIL) >= 8 && strlen(self::INVALID_EMAIL) <= 255
         );
     }
