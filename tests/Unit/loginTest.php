@@ -6,51 +6,54 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class loginTest extends TestCase
+class LoginTest extends TestCase
 {
+    private const VALID_PASSWORD = '12345678';
+    private const INVALID_PASSWORD = 'pwd123213';
+    private const VALID_EMAIL = 'test@hotmail.com';
+    private const INVALID_EMAIL = 'test@12345.com';
+
     /**
-     * A basic feature test example.
+     * Test for password matching.
      */
-    public function test_password_matching()
+    public function testPasswordMatching()
     {
-        $pwd1 = '12345678';
-        $pwd2 = '12345678';
-    
-        $this->assertEquals($pwd1, $pwd2);
-        $this->assertGreaterThanOrEqual(8, strlen($pwd1));
-        $this->assertLessThanOrEqual(20, strlen($pwd1));
+        $this->assertEquals(self::VALID_PASSWORD, self::VALID_PASSWORD);
+        $this->assertGreaterThanOrEqual(8, strlen(self::VALID_PASSWORD));
+        $this->assertLessThanOrEqual(20, strlen(self::VALID_PASSWORD));
     }
 
-    public function test_password_not_matching()
-{
-    $pwd1 = '12345678';
-    $pwd2 = 'pwd123213';
+    /**
+     * Test for password not matching.
+     */
+    public function testPasswordNotMatching()
+    {
+        $this->assertNotEquals(self::VALID_PASSWORD, self::INVALID_PASSWORD);
+        $this->assertLessThanOrEqual(20, strlen(self::VALID_PASSWORD));
+        $this->assertGreaterThanOrEqual(8, strlen(self::VALID_PASSWORD));
+        $this->assertLessThanOrEqual(20, strlen(self::INVALID_PASSWORD));
+        $this->assertGreaterThanOrEqual(8, strlen(self::INVALID_PASSWORD));
+    }
 
-    $this->assertNotEquals($pwd1, $pwd2);
-    $this->assertLessThanOrEqual(20, strlen($pwd1));
-    $this->assertGreaterThanOrEqual(8, strlen($pwd1));
-    $this->assertLessThanOrEqual(20, strlen($pwd2));
-    $this->assertGreaterThanOrEqual(8, strlen($pwd2));
-}
+    /**
+     * Test for email matching.
+     */
+    public function testEmailMatching()
+    {
+        $this->assertTrue(
+            filter_var(self::VALID_EMAIL, FILTER_VALIDATE_EMAIL) !== false &&
+            strlen(self::VALID_EMAIL) <= 255
+        );
+    }
 
-public function test_email_matching()
-{
-    $email = 'test@hotmail.com';
-
-    $this->assertTrue(
-        (strpos($email, '@gmail.com') !== false || strpos($email, '@hotmail.com') !== false) &&
-        strlen($email) <= 20
-    );
-}
-
-public function test_email_not_matching()
-{
-    $email = 'test@12345.com';
-
-    $this->assertTrue(
-        !(strpos($email, '@gmail.com') !== false || strpos($email, '@hotmail.com') !== false) &&
-        strlen($email) >= 8 && strlen($email) <= 20
-    );
-}
-
+    /**
+     * Test for email not matching.
+     */
+    public function testEmailNotMatching()
+    {
+        $this->assertFalse(
+            filter_var(self::INVALID_EMAIL, FILTER_VALIDATE_EMAIL) !== false &&
+            strlen(self::INVALID_EMAIL) >= 8 && strlen(self::INVALID_EMAIL) <= 255
+        );
+    }
 }
