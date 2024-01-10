@@ -126,7 +126,7 @@ class ExperienceController extends Controller
     
         if (!$timestampsValid) {
 
-            $experience->delete();  
+            $experience->delete();
 
             return redirect()->back()->with('error', 'Timestamps should be separated by commas.');
         }
