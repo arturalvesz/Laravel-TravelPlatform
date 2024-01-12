@@ -81,9 +81,9 @@
             <p class="total-price">Total Price: {{ $order->totalPrice }}€</p>
             <div class="form-group text-center">
                 @if(auth()->user()->usertype === 'admin')
-                <a class="btn btn-success" href="/ordersIndex">Go Back</a>
+                <a class="btn btn-success" href="/ordersIndex">Back</a>
                 @else
-                <a class="btn btn-success" href="/orders">Go Back</a>
+                <a class="btn btn-success" href="/orders">Back</a>
                 @endif
             </div>
 

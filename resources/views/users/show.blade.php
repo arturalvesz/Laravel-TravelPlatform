@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <a class="btn btn-success" href="/users">Go Back</a>
+                    <a class="btn btn-success" href="/users">Back</a>
                 </div>
             </form>
         </div>

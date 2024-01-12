@@ -66,8 +66,4 @@ class pdfMail extends Mailable
             storage_path('app/public/ordersPDF/'. $fileName)
         ];
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 822add44ccf4db21c50af08e77f2f16a84714344

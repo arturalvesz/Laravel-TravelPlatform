@@ -55,7 +55,6 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-5">Experience Days</h1>
-
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -91,6 +90,8 @@
             @endforeach
         </tbody>
     </table>
+    <a class="btn btn-outline-success" href="/experience">Back</a>
+
     {{ $days->links('pagination::bootstrap-5') }}
 
 </div>

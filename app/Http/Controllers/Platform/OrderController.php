@@ -61,8 +61,4 @@ class OrderController extends Controller
 
         return view('orders.salesIndex', compact('orders', 'experiences'));
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 822add44ccf4db21c50af08e77f2f16a84714344

@@ -116,9 +116,9 @@ class ExperienceController extends Controller
             }
         }
 
-        $timestampsValid = false;
+        $timestampsValid = true;
         foreach ($request->input('schedule') as $day => $timestamps) {
-            if (strpos($timestamps, ',')) {
+            if (!strpos($timestamps, ',')) {
                 $timestampsValid = true;
                 break;
             }

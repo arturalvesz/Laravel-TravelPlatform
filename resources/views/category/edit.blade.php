@@ -14,6 +14,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Update</button>
+                        <a class="btn btn-success" href="/categories">Back</a>
                     </div>
                 </form>
             </div>

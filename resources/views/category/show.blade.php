@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="form-group">
-                    <a class="btn btn-success" href="/categories">Go Back</a>
+                    <a class="btn btn-success" href="/categories">Back</a>
                 </div>
             </form>
         </div>
