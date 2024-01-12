@@ -22,7 +22,7 @@ class ExperienceController extends Controller
 
     public function index()
     {
-        $experiences = Experience::orderBy('id', 'asc')->paginate(10);
+        $experiences = Experience::orderBy('id', 'asc')->paginate(5);
 
         return view('experience.index', compact('experiences'));
     }
@@ -235,6 +235,6 @@ class ExperienceController extends Controller
 
         $experience->delete();
 
-        return redirect('/')->with('success', 'Experience deleted successfully');
+        return redirect()->back()->with('success', 'Experience deleted successfully');
     }
 }

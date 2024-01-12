@@ -9,7 +9,6 @@ use App\Models\Experience;
 use App\Models\Order;
 use App\Models\OrderExperience;
 use Illuminate\Support\Facades\Auth;
-use PharIo\Manifest\Email;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
@@ -50,7 +49,7 @@ class StripeController extends Controller
         }
 
         $session = \Stripe\Checkout\Session::create([
-            'customer_email' => Auth::user()-> email,
+            'customer_email' => Auth::user()->email,
             'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",

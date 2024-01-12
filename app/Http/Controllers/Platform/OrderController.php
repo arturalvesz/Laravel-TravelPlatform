@@ -26,6 +26,13 @@ class OrderController extends Controller
 
         return view('orders.index', compact('orders'));
     }
+
+    public function adminIndex()
+    {
+        $orders = Order::orderBy('id', 'asc')->paginate(10);
+
+        return view('orders.index', compact('orders'));
+    }
     
     public function downloadPDF($order_id)
     {
@@ -38,6 +45,20 @@ class OrderController extends Controller
             'Content-Type' => 'application/pdf',
         ]);
     }
-
     
+    public function sales()
+    {
+        $user = Auth::user();
+        $experiences = Experience::all();
+
+        // Retrieve all experiences created by the authenticated user
+        $userExperiences = Experience::where('user_id', $user->id)->pluck('id');
+
+        // Retrieve orders that have experiences created by the authenticated user through the pivot table
+        $orders = Order::whereHas('orderExperiences', function ($query) use ($userExperiences) {
+            $query->whereIn('experience_id', $userExperiences);
+        })->with(['orderExperiences', 'orderExperiences.experience', 'user'])->paginate(8);
+
+        return view('orders.salesIndex', compact('orders', 'experiences'));
+    }
 }

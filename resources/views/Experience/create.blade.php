@@ -83,8 +83,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body content">
-                    <h1 class="text-center mb-3 text-secondary">Product Create</h1>
-                    <h2 class="text-secondary text-center">Product Info</h3>
+                    <h1 class="text-center mb-3 text-secondary">Experience Create</h1>
+                    
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
                         <form method="post" action="{{ route('experience.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
