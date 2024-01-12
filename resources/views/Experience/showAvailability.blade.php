@@ -187,7 +187,7 @@ function updateAvailability() {
     var numTickets = $('#num_tickets').val();
 
     $.ajax({
-        url: '{{ route('experience.checkAvailability', ['experience' => $experience->id]) }}',
+        url: "{{ route('experience.checkAvailability', ['experience' => $experience->id]) }}",
         method: 'POST',
         data: {
             _token: '{{ csrf_token() }}',
