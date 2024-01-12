@@ -14,10 +14,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Day;
+use App\Mail\pdfMail;
+use Illuminate\Support\Facades\Mail;
 
 class StripeController extends Controller
 {
-    //
 
     public function checkout()
     {
@@ -48,6 +49,7 @@ class StripeController extends Controller
         }
 
         $session = \Stripe\Checkout\Session::create([
+            'customer_email' => Auth::user()->email,
             'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
@@ -120,6 +122,7 @@ class StripeController extends Controller
             $order->save();
 
             $this->generatePDF($order, $cart);
+            Mail::to(Auth::user()->email)->send(new pdfMail($order, $cart));
 
 
             session()->forget('cart');

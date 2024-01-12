@@ -252,7 +252,7 @@ a:focus {
                     <li><a class="dropdown-item" href="{{ route('address.index') }}">Addresses</a></li>
                     <li><a class="dropdown-item" href="{{ route('photo.index') }}">Photos</a></li>
                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
-                    <li><a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a></li>
+                    <li><a class="dropdown-item" href="{{ route('orders.adminIndex') }}">Orders</a></li>
                     <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>
@@ -301,6 +301,9 @@ a:focus {
                 <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('profile.show', ['user' => auth()->user()]) }}">Profile</a></li>
                     <li><a class="dropdown-item" href="{{ route('orders.index')}}">Orders</a></li>
+                    @if(auth()->user()->usertype === 'local')
+                    <li><a class="dropdown-item" href="{{ route('orders.sales')}}">Sales</a></li>
+                    @endif
                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

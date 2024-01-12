@@ -141,7 +141,11 @@
         Route::controller(ExperienceController::class)->group(function () {
             Route::get('/experience', 'index')->name('experience.index');
             Route::get('/experience/create', 'create')->name('experience.create');
+            Route::post('/experiences/store', 'store')->name('experience.store');
         });
+
+        Route::get('/ordersIndex',[OrderController::class, 'adminIndex'])->name('orders.adminIndex');
+    
     });
 
 
@@ -151,3 +155,5 @@
     Route::controller(ExperienceController::class)->group(function () {
         Route::get('/experience/{experience}', 'show')->name('experience.show');
     });
+
+    Route::get('/sales',[OrderController::class, 'sales'])->name('orders.sales')->middleware('isLocal');

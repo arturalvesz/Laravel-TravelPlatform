@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
 <style>
+    /* Your existing CSS styling */
     body {
         margin: 0;
         padding: 0;
@@ -51,38 +51,35 @@
         font-size: 12px;
     }
 </style>
+
 <div class="container mt-5">
-    <h1 class="text-center mb-5 text-secondary">Orders</h1>
+    <h1 class="text-center mb-5 text-secondary">Your Experiences Sales</h1>
     <div class="table-container">
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead">
                     <tr>
-                        @if(auth()->user()->usertype === 'admin')
-                        <th style="width: 10%">ID</th>
-                        <th style="width: 10%">User Name</th>
-                        @endif
-                        <th style="width: 10%">Status</th>
-                        <th style="width: 10%">Total Price</th>
-                        <th style="width: 10%">Details</th>
+                        <th style="width: 20%">Experience Name</th>
+                        <th style="width: 20%">Buyer Name</th>
+                        <th style="width: 20%">Number of Tickets</th>
+                        <th style="width: 20%">Price</th>
+                        <th style="width: 20%">Bought at</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($orders as $order)
+                    @foreach($order->orderExperiences as $orderExperience)
+                    @php
+                    $experience = $experiences->where('id', $orderExperience->experience_id)->first();
+                    @endphp
                     <tr>
-                        @if(auth()->user()->usertype === 'admin')
-                        <td>{{ $order->id }}</td>
-                        <td>{{ $order->user->name}}</td>
-                        @endif
-                        <td>{{ $order->status }}</td>
-                        <td>{{ $order->totalPrice }}</td>
-                        <td>
-                            <a class="btn btn-outline-success btn-sm" href="{{ route('orders.show', compact('order')) }}">Show</a>
-                            @if($order->status === 'paid')
-                            <a class="btn btn-outline-success btn-sm" href="{{ route('pdf.download', ['order' => $order->id ]) }}" target="_blank" rel="noopener">PDF</a>
-                            @endif
-                        </td>
+                        <td>{{ $experience->name }}</td>
+                        <td>{{ $order->user->name }}</td>
+                        <td>{{ $orderExperience->num_tickets }}</td>
+                        <td>{{ $orderExperience->price }}</td>
+                        <td>{{ $order->created_at }}</td>
                     </tr>
+                    @endforeach
                     @endforeach
                 </tbody>
             </table>
@@ -92,6 +89,4 @@
         {{ $orders->links('pagination::bootstrap-5') }}
     </div>
 </div>
-
-
 @endsection
