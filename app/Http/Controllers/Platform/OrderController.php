@@ -45,6 +45,24 @@ class OrderController extends Controller
             'Content-Type' => 'application/pdf',
         ]);
     }
-
     
+    public function sales()
+    {
+        $user = Auth::user();
+        $experiences = Experience::all();
+
+        // Retrieve all experiences created by the authenticated user
+        $userExperiences = Experience::where('user_id', $user->id)->pluck('id');
+
+        // Retrieve orders that have experiences created by the authenticated user through the pivot table
+        $orders = Order::whereHas('orderExperiences', function ($query) use ($userExperiences) {
+            $query->whereIn('experience_id', $userExperiences);
+        })->with(['orderExperiences', 'orderExperiences.experience', 'user'])->paginate(8);
+
+        return view('orders.salesIndex', compact('orders', 'experiences'));
+    }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 822add44ccf4db21c50af08e77f2f16a84714344
