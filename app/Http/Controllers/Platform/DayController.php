@@ -45,7 +45,7 @@ class DayController extends Controller
 
     $day->save();
 
-    return redirect('/days/' . $day->experience_id)->with('success', 'Day updated successfully!');
+    return redirect('/days' . $day->experience_id)->with('success', 'Day updated successfully!');
 }
 
     public function destroy(Day $day)

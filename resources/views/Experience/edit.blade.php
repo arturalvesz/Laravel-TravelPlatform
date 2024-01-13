@@ -29,6 +29,11 @@ body {
     <div class="row mb-5">
         <div class="col-6 offset-3">
             <h1 class="text-center mb-5 text-secondary">Experience Edit</h1>
+            @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
             <h2 class="text-secondary text-center">Experience Info</h2>
             <br>
             <form method="post" action="{{ route('experience.updateExperience',  compact('experience')) }}">

@@ -224,8 +224,6 @@ class ExperienceController extends Controller
 
     public function destroy(Experience $experience)
     {
-
-
         $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
 
         $experience->day()->delete();

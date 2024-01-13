@@ -8,6 +8,7 @@ use App\Models\Experience;
 use App\Models\OrderExperience;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
+
 class ReviewController extends Controller
 {
     //
@@ -25,7 +26,7 @@ class ReviewController extends Controller
         $existingReview = Review::where('user_id', $user->id)->where('order_experience_id', $request->order_experience_id)->first();
 
         if ($existingReview) {
-            return redirect()->back()->with('error', 'You have already submitted a review for this experience.');
+            return redirect()->route('orders.show', ['order' => $request->input('order_experience_id')])->with('error', 'You have already submitted a review for this experience.');
         }
 
         $request->validate([
@@ -43,7 +44,22 @@ class ReviewController extends Controller
         $review->comment = $request->input('comment');
 
         $review->save();
+        return redirect()->route('orders.show', ['order' => $request->input('order_experience_id')])
+            ->with('success', 'Review submitted successfully!');
 
-        return redirect()->back()->with('success', 'Review submitted successfully!');
+        //return redirect()->back()->with('success', 'Review submitted successfully!');
+    }
+
+    public function destroy(Review $review)
+    {
+        $review->delete();
+        return redirect()->back()->with('success', 'Review deleted successfully!');
+    }
+
+    public function index()
+    {
+        $reviews = Review::all(); 
+
+        return view('review.index', compact('reviews'));
     }
 }

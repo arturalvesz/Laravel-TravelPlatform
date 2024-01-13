@@ -52,6 +52,11 @@
 </style>
 <div class="container">
     <h1 class="text-center mb-5 text-secondary">Experiences Index</h1>
+    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
     <a class="btn btn-secondary float-right" href="{{ route('experience.create')}}">Add</a>
     <h2 class="text-secondary">Experience</h2>
     <table class="table table-bordered table-striped">

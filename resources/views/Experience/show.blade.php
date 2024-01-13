@@ -165,7 +165,12 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        @endif
                         <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Days</a>
+                    
+
+                        @if(Auth::check() && Auth::user()->id === $experience->user_id)
+
                         <a class="btn btn-outline-success" href="{{ route('experience.edit', compact('experience')) }}">Edit</a>
 
 
@@ -202,6 +207,13 @@
                         @endfor
                 </p>
                 <p class="card-text">{{ $review->comment }}</p>
+                @if(auth()->user()->usertype == 'admin')
+                <form action="{{ route('review.destroy', $review->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                @endif
             </div>
         </div>
         @empty
