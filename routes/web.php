@@ -14,6 +14,8 @@
     use App\Http\Controllers\User\PhotoController;
     use App\Http\Controllers\Platform\CategoryController;
     use App\Http\Controllers\Platform\ReviewController;
+    use App\Http\Controllers\GoogleController;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -161,3 +163,8 @@
     });
 
     Route::get('/sales',[OrderController::class, 'sales'])->name('orders.sales')->middleware('isLocal');
+
+    Route::controller(GoogleController::class)->group(function(){
+        Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+        Route::get('auth/google/callback', 'handleGoogleCallback');
+    });

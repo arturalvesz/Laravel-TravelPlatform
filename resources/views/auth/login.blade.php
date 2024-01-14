@@ -6,7 +6,7 @@
         margin-top: 100px;
         width: 350px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(0,0,0,0.04);
+        border: 1px solid rgba(0, 0, 0, 0.04);
         border-radius: 20px;
         margin-left: auto;
         margin-right: auto;
@@ -45,21 +45,30 @@
 
     .close-btn {
         position: absolute;
-        font-size: 2.5rem; /* Adjust the font size as needed */
+        font-size: 2.5rem;
         cursor: pointer;
-        color: #000000; /* Set the color to black */
+        color: #000000;
         display: flex;
         justify-content: center;
         align-items: center;
         top: 10px;
-        left: 10px; 
+        left: 10px;
     }
 
     .btn-success {
         margin-top: 0px;
         margin-bottom: 0px;
     }
-    
+
+    .btn-google {
+        font-size: 12px; 
+        color: #545454;
+        background-color: #ffffff;
+        box-shadow: 0 1px 2px 1px #ddd;
+        width: 100px;
+        margin-top: 10px;
+    }
+
 </style>
 
 <script>
@@ -118,7 +127,13 @@
                                 {{ __('Login') }}
                             </button>
                         </div>
-                        
+
+                        <div class="mb-0 d-flex justify-content-center">
+                            <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="{{ route('auth.google') }}">
+                                <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup
+                            </a>
+                        </div>
+
                     </form>
                 </div>
             </div>
