@@ -80,7 +80,9 @@
     }
 
     #btn2 {
-        margin-bottom: 150px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 0px;
         border-radius: 24px;
         font-size: 16px;
     }
@@ -108,11 +110,13 @@
                     $experience = \App\Models\Experience::find($item['experience_id']);
                     $experienceName = $experience ? $experience->name : 'Experience Not Found';
                     @endphp
+                    
                     <h5 class="card-title">
                         <a href="{{ route('experience.show', ['experience' => $item['experience_id']]) }}" class="plain-link">
                             {{ $experienceName }}
                         </a>
                     </h5>
+                    
                     <p class="card-text">
                         Number of Entries: {{ $item['num_tickets'] }}<br>
                         Date: {{ $item['selected_date'] }}<br>
@@ -125,7 +129,7 @@
                     <form action="{{ route('cart.remove') }}" method="post">
                         @csrf
                         <input type="hidden" name="item_id" value="{{ $item['id'] }}">
-                        <button type="submit" class="btn btn-outline-success" id="btn1">Eliminate</button>
+                        <button type="submit" class="btn btn-outline-danger" id="btn1">Eliminate</button>
                     </form>
                 </div>
             </div>
@@ -142,6 +146,7 @@
             @csrf
             <button type="submit" class="btn btn-outline-success" id="btn2">Checkout</button>
         </form>
+        <a class="btn btn-outline-success" id="btn2" href="{{ route('homepage') }}">Keep Buying</a>
         </div>
         @else
         @if(session('cart_empty_message'))

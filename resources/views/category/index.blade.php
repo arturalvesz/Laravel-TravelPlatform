@@ -54,6 +54,11 @@ body {
 
     <div class="container">
         <h1 class="text-center mb-5 text-secondary">Categories Index</h1>
+        @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
         <a class="btn btn-secondary float-right" href="{{ route('category.create')}}">Add</a>
         <h2 class="text-secondary">Categories</h2>
         <table class="table table-bordered table-striped">

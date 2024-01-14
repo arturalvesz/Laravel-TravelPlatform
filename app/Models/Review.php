@@ -15,12 +15,13 @@ class Review extends Model
         'user_id'
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function orderExperience(){
-        return $this->belongsTo(orderExperience::class);
-
+    public function orderExperience()
+    {
+        return $this->belongsTo(OrderExperience::class, 'order_experience_id');
     }
 }

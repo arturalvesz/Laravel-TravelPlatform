@@ -119,7 +119,7 @@ class ExperienceController extends Controller
         $timestampsValid = true;
         foreach ($request->input('schedule') as $day => $timestamps) {
             if (!strpos($timestamps, ',')) {
-                $timestampsValid = true;
+                $timestampsValid = false;
                 break;
             }
         }
@@ -190,7 +190,6 @@ class ExperienceController extends Controller
 
         $experience->update($request->all());
 
-
         return redirect()->back()->with('success', 'Experience updated successfully!');
     }
 
@@ -216,16 +215,15 @@ class ExperienceController extends Controller
         return response()->json(['available_timeframes' => $availableTimeframes]);
     }
     
-
-    public function showAvailability(Request $request, Experience $experience)
+    public function showAvailability(Request $request, Experience $experience, $date)
     {
-        return view('experience.showAvailability', compact('experience'));
+        $date = Carbon::parse($date);
+    
+        return view('experience.showAvailability', compact('experience', 'date'));
     }
 
     public function destroy(Experience $experience)
     {
-
-
         $orderIds = $experience->orderExperiences->pluck('order_id')->toArray();
 
         $experience->day()->delete();

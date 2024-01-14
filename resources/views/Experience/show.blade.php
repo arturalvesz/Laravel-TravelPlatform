@@ -165,25 +165,20 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Days</a>
+                        @endif
+                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Available Days</a>
+                    
+
+                        @if(Auth::check() && Auth::user()->id === $experience->user_id)
+
                         <a class="btn btn-outline-success" href="{{ route('experience.edit', compact('experience')) }}">Edit</a>
-
-
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <a href="{{ route('experience.showAvailability', ['experience' => $experience->id]) }}" class="btn btn-outline-success check-availability-btn">
-            Check Availability
-        </a>
-        @if(auth()->user()->usertype == 'admin')
-        <a class="btn btn-outline-success check-availability-btn" href="/experience">Back</a>
-        @endif
-
-    </div>
+    
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Reviews and Ratings</h2>
@@ -202,6 +197,14 @@
                         @endfor
                 </p>
                 <p class="card-text">{{ $review->comment }}</p>
+                @if(Auth::user()->usertype == 'admin' || (Auth::user()->usertype == 'local' && (Auth::user()->id === $experience->user_id || $review->user_id === Auth::user()->id ))||
+                Auth::user()->usertype == 'traveler' &&  $review->user_id === Auth::user()->id)
+                <form action="{{ route('review.destroy', $review->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                @endif
             </div>
         </div>
         @empty

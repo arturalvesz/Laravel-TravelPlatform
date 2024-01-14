@@ -55,6 +55,11 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-5">Experience Days</h1>
+    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -63,9 +68,14 @@
                 @endif
                 <th>Date</th>
                 <th>Timeframe</th>
+                @if(auth()->user()->usertype === 'admin' || Auth::check() && Auth::user()->id === $experience->user_id)
                 <th>Max People</th>
                 <th>People Registered</th>
                 <th>Actions</th>
+                @else
+                <th>Available</th>
+                @endif
+                <th>Buy</th>
             </tr>
         </thead>
         <tbody>
@@ -76,6 +86,7 @@
                 @endif
                 <td>{{ $day->date }}</td>
                 <td>{{ $day->timeframe }}</td>
+                @if(auth()->user()->usertype === 'admin' || Auth::check() && Auth::user()->id === $experience->user_id)
                 <td>{{ $day->max_people }}</td>
                 <td>{{ $day->people_registered }}</td>
                 <td>
@@ -86,12 +97,16 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
+                @else
+                <td>{{$day->max_people - $day->people_registered}}</td>
+                @endif
+                <td>
+                    <a class="btn btn-outline-success" href="{{ route('experience.showAvailability', ['experience' => $experience->id, 'date' => $day->date]) }}">Buy</a>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <a class="btn btn-outline-success" href="/experience">Back</a>
-
     {{ $days->links('pagination::bootstrap-5') }}
 
 </div>

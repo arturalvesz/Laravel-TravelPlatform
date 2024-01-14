@@ -215,6 +215,16 @@
         color: #555;
         margin-top: 20px;
     }
+
+    
+    .fa-star {
+       color: #ddd; 
+    }
+
+    .fa-star.checked {
+        color: #f8ce0b; 
+    }
+
 </style>
 
 <div class="container">

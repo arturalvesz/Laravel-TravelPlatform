@@ -193,6 +193,16 @@
     .checked {
         color: orange;
     }
+
+    /* Estilo para estrelas não marcadas */
+    .fa-star {   
+       color: #ddd; 
+        }
+
+    .fa-star.checked {
+      color: #f8ce0b; 
+    }
+
 </style>
 
 <div class="container">
