@@ -58,12 +58,8 @@ class PhotoController extends Controller
 
         $photo->experience_id = $request->input('experience_id');
         $photo->save();
-<<<<<<< HEAD
 
         return redirect('/photos')->with('success', 'Photo stored successfully');
-=======
-        return redirect('/photos')->with('success', 'Photo deleted successfully');
->>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
     }
 
     public function update(Request $request, Photo $photo)
@@ -78,11 +74,6 @@ class PhotoController extends Controller
         $photo->name = $request->file('image')->getClientOriginalName();
         $photo->path = $request->file('image')->hashName();
         $photo->save();
-<<<<<<< HEAD
         return redirect('/photos')->with('success', 'Photo stored successfully');
-=======
-        return redirect('/photos')->with('success', 'Photo deleted successfully');
-
->>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
     }
 }

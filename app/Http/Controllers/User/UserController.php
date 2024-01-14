@@ -53,11 +53,7 @@ class UserController extends Controller
 
         $user->save();
 
-<<<<<<< HEAD
         return redirect('/users')->with('success', 'User updated successfully');
-=======
-        return redirect('/users')->with('success', 'Photo deleted successfully');
->>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
     }
 
     public function create()
