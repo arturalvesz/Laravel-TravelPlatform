@@ -44,9 +44,9 @@ class ExperienceController extends Controller
         $address = $experience->address;
         $day = $experience->day;
         $reviews = Review::whereIn('order_experience_id', $experience->orderExperiences->pluck('id'))->paginate(5);
-        
 
-        return view('experience.show', compact('experience', 'photo', 'address', 'userAuth', 'day','reviews'));
+
+        return view('experience.show', compact('experience', 'photo', 'address', 'userAuth', 'day', 'reviews'));
     }
 
     public function createExperience()
@@ -116,22 +116,6 @@ class ExperienceController extends Controller
             }
         }
 
-        $timestampsValid = true;
-        foreach ($request->input('schedule') as $day => $timestamps) {
-            if (!strpos($timestamps, ',')) {
-                $timestampsValid = false;
-                break;
-            }
-        }
-    
-        if (!$timestampsValid) {
-
-            $experience->delete();
-
-            return redirect()->back()->with('error', 'Timestamps should be separated by commas.');
-        }
-
-
         //Handle schedule creation
         $startDate = Carbon::tomorrow();
         $endDate = $startDate->copy()->addMonths(3);
@@ -140,36 +124,71 @@ class ExperienceController extends Controller
 
         while ($startDate->lte($endDate)) {
             $day = strtolower($startDate->format('l'));
-
+        
             if ($request->filled("schedule.$day")) {
-                $timestamps = explode(',', $request->input("schedule.$day"));
-
-                foreach ($timestamps as $timestamp) {
-                    $timeframe = trim($timestamp);
-
+                $timestamps = $request->input("schedule.$day");
+        
+                // Check if there is at least one non-empty timestamp
+                $hasNonEmptyTimestamp = false;
+        
+                // Check if the string contains a comma
+                if (strpos($timestamps, ',') !== false) {
+                    // If there are commas, split the timestamps using commas
+                    $timestamps = explode(',', $timestamps);
+        
+                    foreach ($timestamps as $timestamp) {
+                        if (!empty(trim($timestamp))) {
+                            $hasNonEmptyTimestamp = true;
+                            break;
+                        }
+                    }
+        
+                    if (!$hasNonEmptyTimestamp) {
+                        return redirect()->back()->with('error', 'Invalid timestamps provided.');
+                    }
+        
+                    foreach ($timestamps as $timestamp) {
+                        $timeframe = trim($timestamp);
+        
+                        $dayModel = new Day([
+                            'experience_id' => $experience->id,
+                            'date' => $startDate,
+                            'timeframe' => $timeframe,
+                            'max_people' => $request->input('max_people'),
+                        ]);
+        
+                        // Save the day
+                        $experience->day()->save($dayModel);
+        
+                        $hasScheduleEntries = true;
+                    }
+                } else {
+                    // If there are no commas, treat the entire string as one timestamp
+                    $timeframe = trim($timestamps);
+        
                     $dayModel = new Day([
                         'experience_id' => $experience->id,
                         'date' => $startDate,
                         'timeframe' => $timeframe,
                         'max_people' => $request->input('max_people'),
                     ]);
-
+        
                     // Save the day
                     $experience->day()->save($dayModel);
-
+        
                     $hasScheduleEntries = true;
-
                 }
             }
             // Move to the next day
             $startDate->addDay();
         }
-
         
+
+
         if (!$hasScheduleEntries) {
             // Rollback the transaction or delete the experience to ensure it's not saved without schedule entries
             $experience->delete();
-            
+
             return redirect()->back()->with('error', 'Please provide at least one schedule entry.');
         }
 
@@ -214,11 +233,11 @@ class ExperienceController extends Controller
         // Return the available timeframes
         return response()->json(['available_timeframes' => $availableTimeframes]);
     }
-    
+
     public function showAvailability(Request $request, Experience $experience, $date)
     {
         $date = Carbon::parse($date);
-    
+
         return view('experience.showAvailability', compact('experience', 'date'));
     }
 
