@@ -75,6 +75,10 @@
         border-radius: 15px;
     }
 
+    .btn-margin-top {
+        margin-top: 10px;
+    }
+
 
 </style>
 
@@ -156,6 +160,7 @@
 
                             <div class="form-group mt-5">
                                 <button type="submit" class="btn btn-success btn-submit">Create</button>
+                                <a class="btn btn-success btn-margin-top" href='/experience'>Back</a>
                             </div>
                         </form>
                     </div>

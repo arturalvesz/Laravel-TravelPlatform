@@ -34,6 +34,11 @@ class ReviewController extends Controller
             'comment' => 'required|string|max:250',
         ]);
 
+        $orderExperience = OrderExperience::find($request->order_experience_id);
+
+        $order_id = $orderExperience->order_id;
+
+
         $review = new Review();
 
         $review->user_id = $user->id; 

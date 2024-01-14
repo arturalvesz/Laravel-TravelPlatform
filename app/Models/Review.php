@@ -21,6 +21,5 @@ class Review extends Model
 
     public function orderExperience(){
         return $this->belongsTo(orderExperience::class);
-
     }
 }
