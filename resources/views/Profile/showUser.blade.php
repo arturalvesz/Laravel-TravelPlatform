@@ -299,33 +299,20 @@
                             <p class="experience-duration">Duration: {{$experience->duration }} minutes</p>
                             <p class="experience-location">Location: {{$experience->location }}</p>
                             <p class="experience-price">Price: {{ $experience->price }}€</p>
-                            
+
                             @php
-                        $userExperiencesReviews = collect();
-                        foreach ($userExperiences as $experience) {
-                        $userExperiencesReviews = $userExperiencesReviews->merge($experience->reviews);
-                        }
+                            $averageRating = $experience->reviews->avg('starRating');
+                            @endphp
+                            <p class="experience-rating">
+                                Average Rating:
+                                @for ($i = 1; $i <= 5; $i++) @if ($i <=$averageRating) <span class="fa fa-star checked"></span>
+                                    @else
+                                    <span class="fa fa-star"></span>
+                                    @endif
+                                    @endfor
+                                    ({{ $experience->reviews->count() }} ratings)
+                            </p>
 
-                        if($userExperiencesReviews->count() > 0) {
-                        $averageRating = $userExperiencesReviews->avg('starRating');
-                        @endphp
-
-                        <p class="experience-rating">
-                            Average Rating:
-                            @for ($i = 1; $i <= 5; $i++) @if ($i <=$averageRating) <span class="fa fa-star checked"></span>
-                                @else
-                                <span class="fa fa-star"></span>
-                                @endif
-                                @endfor
-                                ({{ $userExperiencesReviews->count() }} ratings)
-                        </p>
-                        @php
-                        } else {
-                        @endphp
-                        <p class="experience-rating">No ratings yet.</p>
-                        @php
-                        }
-                        @endphp
                         </div>
                     </div>
                 </a>
