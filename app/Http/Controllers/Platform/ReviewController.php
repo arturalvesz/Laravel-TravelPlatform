@@ -18,6 +18,7 @@ class ReviewController extends Controller
         return view('review.create', compact('order_experience', 'experience'));
     }
 
+
     public function store(Request $request)
     {
 
@@ -25,8 +26,12 @@ class ReviewController extends Controller
 
         $existingReview = Review::where('user_id', $user->id)->where('order_experience_id', $request->order_experience_id)->first();
 
+        $orderExperience = OrderExperience::find($request->order_experience_id);
+
+        $order_id = $orderExperience->order_id;
+
         if ($existingReview) {
-            return redirect()->route('orders.show', ['order' => $request->input('order_experience_id')])->with('error', 'You have already submitted a review for this experience.');
+            return redirect()->route('orders.show', $order_id)->with('error', 'You have already submitted a review for this experience.');
         }
 
         $request->validate([
@@ -44,10 +49,8 @@ class ReviewController extends Controller
         $review->comment = $request->input('comment');
 
         $review->save();
-        return redirect()->route('orders.show', ['order' => $request->input('order_experience_id')])
-            ->with('success', 'Review submitted successfully!');
 
-        //return redirect()->back()->with('success', 'Review submitted successfully!');
+        return redirect()->route('orders.show', $order_id)->with('success', 'Review submitted successfully!');
     }
 
     public function destroy(Review $review)
@@ -58,7 +61,7 @@ class ReviewController extends Controller
 
     public function index()
     {
-        $reviews = Review::all(); 
+        $reviews = Review::with(['user', 'orderExperience.experience'])->get();
 
         return view('review.index', compact('reviews'));
     }

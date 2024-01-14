@@ -182,11 +182,8 @@
     </div>
     <div class="text-center">
         <a href="{{ route('experience.showAvailability', ['experience' => $experience->id]) }}" class="btn btn-outline-success check-availability-btn">
-            Check Availability
+            Buy Experience
         </a>
-        @if(auth()->user()->usertype == 'admin')
-        <a class="btn btn-outline-success check-availability-btn" href="/experience">Back</a>
-        @endif
 
     </div>
 

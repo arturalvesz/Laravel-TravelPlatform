@@ -103,8 +103,6 @@
             @endforeach
         </tbody>
     </table>
-    <a class="btn btn-outline-success" href="/experience">Back</a>
-
     {{ $days->links('pagination::bootstrap-5') }}
 
 </div>

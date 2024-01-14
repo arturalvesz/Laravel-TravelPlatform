@@ -77,7 +77,6 @@ body {
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Update</button>
-                    <a class="btn btn-success btn-submit" href="/experience">Back</a>
                 </div>
             </form>
         </div>

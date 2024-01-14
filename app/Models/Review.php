@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    /*protected $fillable = [
         'starRating',
         'comment',
         'order_experience_id',
@@ -22,5 +22,15 @@ class Review extends Model
     public function orderExperience(){
         return $this->belongsTo(orderExperience::class);
 
+    }*/
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function orderExperience()
+    {
+        return $this->belongsTo(OrderExperience::class, 'order_experience_id');
     }
 }

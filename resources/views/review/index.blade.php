@@ -65,7 +65,7 @@ body {
                 <tr>
                     <th>ID</th>
                     <th>Experience</th>
-                    <th>Buyer</th>
+                    <th>Reviwer</th>
                     <th>Rating</th>
                     <th>Comment</th>     
                     <th>Actions</th>
@@ -76,8 +76,8 @@ body {
                 @foreach ($reviews as $review)
                     <tr>
                         <td>{{ $review->id }}</td>
-                        <td>{{ $review->order_experience_id }}</td>
-                        <td>{{ $review->user_id }}</td>
+                        <td>{{ $review->orderExperience->experience->name }}</td>
+                        <td>{{ $review->user->name }}</td>
                         <td>{{ $review->starRating }}</td>
                         <td>{{ $review->comment }}</td>
                         
