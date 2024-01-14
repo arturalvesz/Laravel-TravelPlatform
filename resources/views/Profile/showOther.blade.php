@@ -193,6 +193,15 @@
     .checked {
         color: orange;
     }
+
+    .fa-star {   
+       color: #ddd; 
+        }
+
+    .fa-star.checked {
+      color: #f8ce0b; 
+    }
+
 </style>
 
 <div class="container">
@@ -268,18 +277,33 @@
                             <p class="experience-price">Price: {{ $experience->price }}€</p>
 
                             <!-- Display average rating stars -->
+                            
                             @php
-                            $averageRating = $experience->reviews->avg('starRating');
-                            @endphp
-                            <p class="experience-rating">
-                                Average Rating:
-                                @for ($i = 1; $i <= 5; $i++) @if ($i <=$averageRating) <span class="fa fa-star checked"></span>
-                                    @else
-                                    <span class="fa fa-star"></span>
-                                    @endif
-                                    @endfor
-                                    ({{ $experience->reviews->count() }} ratings)
-                            </p>
+                        $userExperiencesReviews = collect();
+                        foreach ($userExperiences as $experience) {
+                        $userExperiencesReviews = $userExperiencesReviews->merge($experience->reviews);
+                        }
+
+                        if($userExperiencesReviews->count() > 0) {
+                        $averageRating = $userExperiencesReviews->avg('starRating');
+                        @endphp
+
+                        <p class="experience-rating">
+                            Average Rating:
+                            @for ($i = 1; $i <= 5; $i++) @if ($i <=$averageRating) <span class="fa fa-star checked"></span>
+                                @else
+                                <span class="fa fa-star"></span>
+                                @endif
+                                @endfor
+                                ({{ $userExperiencesReviews->count() }} ratings)
+                        </p>
+                        @php
+                        } else {
+                        @endphp
+                        <p class="experience-rating">No ratings yet.</p>
+                        @php
+                        }
+                        @endphp
 
                         </div>
                     </div>

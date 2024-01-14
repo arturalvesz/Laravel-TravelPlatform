@@ -199,7 +199,8 @@
                         @endfor
                 </p>
                 <p class="card-text">{{ $review->comment }}</p>
-                @if(auth()->user()->usertype == 'admin')
+                @if(Auth::user()->usertype == 'admin' || (Auth::user()->usertype == 'local' && (Auth::user()->id === $experience->user_id || $review->user_id === Auth::user()->id ))||
+                Auth::user()->usertype == 'traveler' &&  $review->user_id === Auth::user()->id)
                 <form action="{{ route('review.destroy', $review->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
