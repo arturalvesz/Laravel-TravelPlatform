@@ -216,10 +216,11 @@ class ExperienceController extends Controller
         return response()->json(['available_timeframes' => $availableTimeframes]);
     }
     
-
-    public function showAvailability(Request $request, Experience $experience)
+    public function showAvailability(Request $request, Experience $experience, $date)
     {
-        return view('experience.showAvailability', compact('experience'));
+        $date = Carbon::parse($date);
+    
+        return view('experience.showAvailability', compact('experience', 'date'));
     }
 
     public function destroy(Experience $experience)

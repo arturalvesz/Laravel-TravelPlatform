@@ -85,7 +85,7 @@
             Route::get('/experience/edit/{experience}', 'edit')->name('experience.edit');
             Route::post('/experience/destroy/{experience}', 'destroy')->name('experience.destroy');
             Route::post('/experience/{experience}/show-availability', 'checkAvailability')->name('experience.checkAvailability');
-            Route::get('/experience/{experience}/show-availability', 'showAvailability')->name('experience.showAvailability');
+            Route::get('/experience/{experience}/show-availability/{date}', 'showAvailability')->name('experience.showAvailability');
         });
 
         Route::post('experience/storeDay', [DayController::class, 'storeDay'])->name('experience.storeDay');

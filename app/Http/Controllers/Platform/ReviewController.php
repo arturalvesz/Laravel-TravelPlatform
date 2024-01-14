@@ -8,7 +8,7 @@ use App\Models\Experience;
 use App\Models\OrderExperience;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 class ReviewController extends Controller
 {
     //
@@ -61,7 +61,7 @@ class ReviewController extends Controller
 
     public function index()
     {
-        $reviews = Review::with(['user', 'orderExperience.experience'])->get();
+        $reviews = Review::with(['user', 'orderExperience.experience'])->paginate(5);
 
         return view('review.index', compact('reviews'));
     }

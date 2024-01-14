@@ -75,6 +75,7 @@
                 @else
                 <th>Available</th>
                 @endif
+                <th>Buy</th>
             </tr>
         </thead>
         <tbody>
@@ -99,6 +100,9 @@
                 @else
                 <td>{{$day->max_people - $day->people_registered}}</td>
                 @endif
+                <td>
+                    <a class="btn btn-outline-success" href="{{ route('experience.showAvailability', ['experience' => $experience->id, 'date' => $day->date]) }}">Buy</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

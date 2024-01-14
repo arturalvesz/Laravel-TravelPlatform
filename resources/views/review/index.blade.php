@@ -93,7 +93,7 @@ body {
                 @endforeach
             </tbody>
         </table>
-    
+        {{ $reviews->links('pagination::bootstrap-5') }}
     </div>
 @endsection
 

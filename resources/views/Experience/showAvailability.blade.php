@@ -134,8 +134,8 @@ body {
         <div class="card">
             <div class="card-body">
                 <div class="input-container">
-                    <label for="selected_date">Select Date:</label>
-                    <input type="date" id="selected_date" required>
+                    <label for="selected_date">Selected Date:</label>
+                    <input type="date" id="selected_date" name= "selected_date" required value="{{ $date->format('Y-m-d') }}">
                 </div>
 
                 <div class="input-container">

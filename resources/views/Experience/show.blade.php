@@ -166,7 +166,7 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         @endif
-                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Days</a>
+                        <a href="{{ route('days.index', compact('experience')) }}" class="btn btn-outline-success">View Available Days</a>
                     
 
                         @if(Auth::check() && Auth::user()->id === $experience->user_id)
@@ -180,12 +180,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <a href="{{ route('experience.showAvailability', ['experience' => $experience->id]) }}" class="btn btn-outline-success check-availability-btn">
-            Buy Experience
-        </a>
-
-    </div>
+    
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Reviews and Ratings</h2>
