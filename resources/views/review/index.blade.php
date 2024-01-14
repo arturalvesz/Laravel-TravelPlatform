@@ -81,7 +81,8 @@ body {
                         <td>{{ $review->starRating }}</td>
                         <td>{{ $review->comment }}</td>
                         
-                        <td>   
+                        <td>
+                        <a class="btn btn-outline-success" href="{{ route('experience.show', ['experience' => $review->orderExperience->experience]) }}">Show</a>
                         <form action="{{ route('review.destroy', $review->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
