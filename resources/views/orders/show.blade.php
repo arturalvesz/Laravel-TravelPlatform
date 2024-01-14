@@ -84,9 +84,11 @@
                 </div>
             </div>
 
-            <div class="form-group text-center">
-                <a class="btn btn-outline-success d-inline-block align-middle" href="{{ route('review.create', ['order_experience'=>$order_experience, 'experience'=>$experience]) }}">Create a Review</a>
-            </div>
+            @if(auth()->user()->id === $order->user_id)
+                <div class="form-group text-center">
+                    <a class="btn btn-outline-success d-inline-block align-middle" href="{{ route('review.create', ['order_experience'=>$order_experience, 'experience'=>$experience]) }}">Create a Review</a>
+                </div>
+            @endif
 
             @endforeach
 
