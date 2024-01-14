@@ -21,6 +21,8 @@ class Review extends Model
 
     public function orderExperience(){
         return $this->belongsTo(orderExperience::class);
+<<<<<<< HEAD
+=======
 
     }*/
 
@@ -32,5 +34,6 @@ class Review extends Model
     public function orderExperience()
     {
         return $this->belongsTo(OrderExperience::class, 'order_experience_id');
+>>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
     }
 }

@@ -42,6 +42,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
+        
         $user->name = $request->input('name');
         $user->email = $request->input('email');
 
@@ -52,7 +53,11 @@ class UserController extends Controller
 
         $user->save();
 
+<<<<<<< HEAD
+        return redirect('/users')->with('success', 'User updated successfully');
+=======
         return redirect('/users')->with('success', 'Photo deleted successfully');
+>>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
     }
 
     public function create()

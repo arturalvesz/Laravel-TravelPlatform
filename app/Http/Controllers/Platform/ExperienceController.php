@@ -119,7 +119,11 @@ class ExperienceController extends Controller
         $timestampsValid = true;
         foreach ($request->input('schedule') as $day => $timestamps) {
             if (!strpos($timestamps, ',')) {
+<<<<<<< HEAD
+                $timestampsValid = false;
+=======
                 $timestampsValid = true;
+>>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
                 break;
             }
         }
@@ -189,7 +193,6 @@ class ExperienceController extends Controller
         ]);
 
         $experience->update($request->all());
-
 
         return redirect()->back()->with('success', 'Experience updated successfully!');
     }

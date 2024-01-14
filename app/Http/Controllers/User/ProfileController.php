@@ -86,12 +86,14 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->file('image')->store('public/images');
+
         $photo = new Photo();
         $photo->name = $request->file('image')->getClientOriginalName();
         $photo->path = $request->file('image')->hashName();
 
         $photo->user_id = $user->id;
         $photo->save();
+        
         return redirect()->back()->with('success', 'Photo stored successfully');
     }
 
