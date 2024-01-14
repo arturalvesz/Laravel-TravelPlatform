@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Address;
 
 class RegisterController extends Controller
 {
@@ -48,13 +49,18 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+{
+    return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+        'country' => ['required', 'string', 'max:30'],
+        'district' => ['required', 'string', 'max:30'],
+        'city' => ['required', 'string', 'max:30'],
+        'street' => ['required', 'string', 'max:30'],
+        'postal_code' => ['required', 'string', 'max:30'],
+    ]);
+}
 
     /**
      * Create a new user instance after a valid registration.
@@ -64,11 +70,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'usertype' => 'traveler',
         ]);
+
+        $address = new Address([
+            'country' => $data['country'],
+            'district' => $data['district'],
+            'city' => $data['city'],
+            'street' => $data['street'],
+            'postal_code' => $data['postal_code'],
+        ]);
+    
+        $user->address()->save($address);
+    
+        return $user;
     }
-}
+    }
+
