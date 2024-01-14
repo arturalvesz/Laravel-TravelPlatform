@@ -14,6 +14,6 @@ class OrderExperience extends Model
         return $this->belongsTo(Order::class);
     }
     public function experience(){
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Experience::class);
     }
 }

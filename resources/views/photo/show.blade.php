@@ -53,7 +53,7 @@
                     <input type="text" class="form-control text-cent" id="ExperienceID" name="ExperienceID" value="{{ old('name', $photo->experience_id) }}" disabled>
                 </div>
                 <div class="form-group">
-                    <a class="btn btn-success" href="/photos">Go Back</a>
+                    <a class="btn btn-success" href="/photos">Back</a>
                 </div>
             </form>
         </div>

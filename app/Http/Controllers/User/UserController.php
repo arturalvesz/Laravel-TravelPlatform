@@ -32,7 +32,7 @@ class UserController extends Controller
         $hashedPassword = Hash::make($password);
         $request->merge(['password'=> $hashedPassword]);
         User::create($request->all());
-        return redirect()->back()->with('success', 'User stored successfully');
+        return redirect('/users')->with('success', 'User stored successfully');
     }
 
     public function update(Request $request, User $user)
@@ -53,7 +53,11 @@ class UserController extends Controller
 
         $user->save();
 
+<<<<<<< HEAD
         return redirect('/users')->with('success', 'User updated successfully');
+=======
+        return redirect('/users')->with('success', 'Photo deleted successfully');
+>>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
     }
 
     public function create()

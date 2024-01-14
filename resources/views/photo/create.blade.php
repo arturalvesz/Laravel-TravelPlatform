@@ -20,6 +20,7 @@
                 </div>
                 <div class="form-group mt-5">
                     <button type="submit" class="btn btn-success">Submit</button>
+                    <a class="btn btn-success" href="/photos">Back</a>
                 </div>
             </form>
         </div>

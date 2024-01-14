@@ -51,47 +51,49 @@ body {
     }
 
 </style>
+
     <div class="container">
-        <h1 class="text-center mb-5 text-secondary">Photos Index</h1>
+        <h1 class="text-center mb-5 text-secondary">Reviews Index</h1>
         @if(session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}
                     </div>
                     @endif
-        <a class="btn btn-secondary float-right" href="{{ route('photo.create')}}">Add</a>
-        <h2 class="text-secondary">Photos</h2>
+        <h2 class="text-secondary">Reviews</h2>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Path</th>
-                    <th>UserID</th>
-                    <th>ExperienceID</th>
+                    <th>Experience</th>
+                    <th>Reviwer</th>
+                    <th>Rating</th>
+                    <th>Comment</th>     
                     <th>Actions</th>
+
                 </tr>
             </thead>
             <tbody>
-                @foreach ($photos as $photo)
+                @foreach ($reviews as $review)
                     <tr>
-                        <td>{{ $photo->id }}</td>
-                        <td>{{ $photo->name }}</td>
-                        <td>{{ $photo->path }}</td>
-                        <td>{{ $photo->user_id }}</td>
-                        <td>{{ $photo->experience_id }}</td>
+                        <td>{{ $review->id }}</td>
+                        <td>{{ $review->orderExperience->experience->name }}</td>
+                        <td>{{ $review->user->name }}</td>
+                        <td>{{ $review->starRating }}</td>
+                        <td>{{ $review->comment }}</td>
+                        
                         <td>
-                            <form action=" {{ route('photo.destroy', compact('photo')) }} " method="POST">
+                        <a class="btn btn-outline-success" href="{{ route('experience.show', ['experience' => $review->orderExperience->experience]) }}">Show</a>
+                        <form action="{{ route('review.destroy', $review->id) }}" method="POST" class="d-inline">
                                 @csrf
-                                <a class="btn btn-outline-success" href="{{ route('photo.show', compact('photo')) }}">Show</a>
-                                <a class="btn  btn-outline-success" href="{{ route('photo.edit', compact('photo')) }}">Edit</a>
+                                @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                        </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        {{ $photos->links('pagination::bootstrap-5') }}
+        {{ $reviews->links('pagination::bootstrap-5') }}
     </div>
 @endsection
 

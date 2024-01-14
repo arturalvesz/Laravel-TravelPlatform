@@ -17,6 +17,7 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Upload</button>
+                    <a class="btn btn-success" href="/photos">Back</a>
                 </div>
             </form>
         </div>

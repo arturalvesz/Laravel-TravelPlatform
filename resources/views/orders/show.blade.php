@@ -47,6 +47,18 @@
 <div class="container mt-5">
     <div class="row mb-5 justify-content-center">
         <div class="col-6">
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+            @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
             <h2 class="text-secondary text-center">Order Info</h2>
             @foreach($order->orderExperiences as $order_experience)
             @php
@@ -81,9 +93,9 @@
             <p class="total-price">Total Price: {{ $order->totalPrice }}€</p>
             <div class="form-group text-center">
                 @if(auth()->user()->usertype === 'admin')
-                <a class="btn btn-success" href="/ordersIndex">Go Back</a>
+                <a class="btn btn-success" href="/ordersIndex">Back</a>
                 @else
-                <a class="btn btn-success" href="/orders">Go Back</a>
+                <a class="btn btn-success" href="/orders">Back</a>
                 @endif
             </div>
 

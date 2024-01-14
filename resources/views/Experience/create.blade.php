@@ -160,7 +160,11 @@
 
                             <div class="form-group mt-5">
                                 <button type="submit" class="btn btn-success btn-submit">Create</button>
+<<<<<<< HEAD
                                 <a class="btn btn-success btn-margin-top" href='/experience'>Back</a>
+=======
+                                <a class="btn btn-success btn-submit" href='/experience'>Back</a>
+>>>>>>> f073c1b33e901446b1dc6d8beb95bbbbc0e17731
                             </div>
                         </form>
                     </div>

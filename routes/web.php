@@ -85,14 +85,18 @@
             Route::get('/experience/edit/{experience}', 'edit')->name('experience.edit');
             Route::post('/experience/destroy/{experience}', 'destroy')->name('experience.destroy');
             Route::post('/experience/{experience}/show-availability', 'checkAvailability')->name('experience.checkAvailability');
-            Route::get('/experience/{experience}/show-availability', 'showAvailability')->name('experience.showAvailability');
+            Route::get('/experience/{experience}/show-availability/{date}', 'showAvailability')->name('experience.showAvailability');
         });
 
         Route::post('experience/storeDay', [DayController::class, 'storeDay'])->name('experience.storeDay');
 
     
-        Route::get('/experience/review/create/{order_experience}/{experience}',[ReviewController::class,'create'])->name('review.create');
-        Route::post('/experience/review/store', [ReviewController::class,'store'])->name('review.store');
+        Route::controller(ReviewController::class)->group(function (){
+        Route::get('/experience/review/create/{order_experience}/{experience}','create')->name('review.create');
+        Route::post('/experience/review/store', 'store')->name('review.store');
+        Route::delete('/reviews/{review}', 'destroy')->name('review.destroy');
+        Route::get('/reviews', 'index')->name('review.index');
+    });
 
     });
 

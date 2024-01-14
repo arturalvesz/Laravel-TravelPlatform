@@ -43,6 +43,7 @@
 
                     <li><a class="dropdown-item" href="{{ route('users.index') }}">Users</a></li>
                     <li><a class="dropdown-item" href="{{ route('experience.index') }}">Experiences</a></li>
+                    <li><a class="dropdown-item" href="{{ route('review.index') }}">Review</a></li>
                     <li><a class="dropdown-item" href="{{ route('address.index') }}">Addresses</a></li>
                     <li><a class="dropdown-item" href="{{ route('photo.index') }}">Photos</a></li>
                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>

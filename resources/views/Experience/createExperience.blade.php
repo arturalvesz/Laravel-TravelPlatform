@@ -107,6 +107,11 @@
                 <div class="card-body content">
                     <h2 class="text-secondary title">Create an Experience</h2>
 
+                    @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                    @endif
                     @if(session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}
