@@ -54,7 +54,7 @@
                     <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{ old('name', $address->postal_code) }}" disabled>
                 </div>
                 <div class="form-group">
-                    <a class="btn btn-success" href="/addresses">Go Back</a>
+                    <a class="btn btn-success" href="/addresses">Back</a>
                 </div>
             </form>
         </div>

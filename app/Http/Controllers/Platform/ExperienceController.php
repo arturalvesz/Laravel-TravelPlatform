@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Models\OrderExperience;
 use App\Models\Review;
 use Illuminate\Support\Facades\DB;
+use App\Http\Middleware\isAdmin;
 
 
 class ExperienceController extends Controller
@@ -209,7 +210,13 @@ class ExperienceController extends Controller
 
         $experience->update($request->all());
 
-        return redirect()->back()->with('success', 'Experience updated successfully!');
+        if(Auth::user()->usertype ==  'admin'){
+            return redirect('/experience')->with('success', 'Experience updated successfully');
+        }else{
+            return redirect()->back()->with('success', 'Experience updated successfully!');
+        }
+
+        
     }
 
     public function checkAvailability(Request $request, $experience)
@@ -252,6 +259,10 @@ class ExperienceController extends Controller
 
         $experience->delete();
 
-        return redirect()->back()->with('success', 'Experience deleted successfully');
+        if(Auth::user()->usertype ==  'admin'){
+            return redirect()->back()->with('success', 'Experience deleted successfully');
+        }else{
+            return redirect('/profile/' . Auth::user()->id)->with('success', 'Experience deleted successfully');
+        }
     }
 }

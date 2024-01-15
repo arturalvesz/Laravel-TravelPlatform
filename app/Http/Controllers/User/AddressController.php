@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Address;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
 
 class AddressController extends Controller
 {
@@ -58,7 +60,9 @@ class AddressController extends Controller
         ]);
 
         $address->save();
+        
         return Redirect::back()->with('success', 'Your address has been created successfully!');
+
     }
 
     public function update(Request $request, Address $address){
@@ -71,6 +75,10 @@ class AddressController extends Controller
         ]);
 
         $address->update($request->all());
-        return Redirect::back()->with('success', 'Your address has been updated successfully!');
+        if (Auth::user()->usertype == 'admin') {
+            return redirect()->back()->with('success', 'The address has been updated successfully!');
+        } else {
+            return redirect()->back()->with('success', 'Your address has been updated successfully!');
+        }
     }
 }

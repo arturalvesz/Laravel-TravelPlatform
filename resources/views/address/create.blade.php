@@ -4,6 +4,17 @@
     <div class="row mb-5">
         <div class="col-6 offset-3">
             <h1 class="text-center mb-5 text-secondary">Address Create</h1>
+            @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
+                    @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                    @endif
             <h2 class="text-secondary text-center">Address Info</h3>
                 <form method="post" action="{{ route('address.store') }}">
                     @csrf
@@ -29,6 +40,7 @@
                     </div>
                     <div class="form-group mt-5">
                         <button type="submit" class="btn btn-success">Create</button>
+                        <a class="btn btn-success" href= "{{route('address.index')}}" >Back</a>
                     </div>
                 </form>
         </div>

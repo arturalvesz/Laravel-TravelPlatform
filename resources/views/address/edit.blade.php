@@ -32,6 +32,11 @@ body {
     <div class="row mb-5">
         <div class="col-6 offset-3">
             <h1 class="text-center mb-5 text-secondary">Address Edit</h1>
+            @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
             <h2 class="text-secondary text-center">Address Info</h2>
             <form method="post" action="{{ route('address.update', compact('address')) }}">
                 @csrf
@@ -58,6 +63,7 @@ body {
                 </div>
                 <div class="form-group mt-5">
                     <button type="submit" class="btn btn-success">Update</button>
+                    <a class="btn btn-success" href= "{{route('address.index')}}" >Back</a>
                 </div>
             </form>
         </div>
